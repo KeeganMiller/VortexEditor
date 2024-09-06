@@ -43,7 +43,7 @@ public class PanelComponent : UIComponent
 
     public int ShadowDistance { get; set; }
     public Color ShadowColor { get; set;} = new Color(38, 38, 38, 100);
-
+    
     public Vector2 WindowScale { get; private set;} = Vector2.One;
     private Color _windowTint = Color.Black;
     public Color WindowTint 
@@ -55,7 +55,7 @@ public class PanelComponent : UIComponent
     public int ScaleDirection 
     {
         get => (int)ScaleDirection;
-        private set => _scaleDirection = (EScaleDirection)value;
+        set => _scaleDirection = (EScaleDirection)value;
     }
     private bool _isScaling = false;                         // Flag if we are currently scaling
     public bool IsScaling => _isScaling;
@@ -74,7 +74,7 @@ public class PanelComponent : UIComponent
     public override void Update(float dt)
     {
         base.Update(dt);        
-        
+
         HandleStretchSizing();
 
         // Toggle if we are scaling
@@ -215,7 +215,7 @@ public class PanelComponent : UIComponent
 
 
         Raylib.DrawRectangleRec(new Rectangle(OwnerTransform.Position, _panelSize), _windowTint);
-
+        Raylib.DrawRectangleLinesEx(new Rectangle(OwnerTransform.Position, _panelSize), 1f, Color.Black);
         
     }
 
