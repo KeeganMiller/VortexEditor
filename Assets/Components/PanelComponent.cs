@@ -7,7 +7,7 @@ namespace VortexEditor;
 
 public class PanelComponent : UIComponent
 {
-    public bool IsFree => Anchor == EAnchorLocation.ANCHOR_None;
+    public bool IsFree => _anchor == EAnchorLocation.ANCHOR_None;
 
     public Vector2 WindowScale { get; private set;} = Vector2.One;
     private Color _windowTint = Color.Black;
