@@ -30,7 +30,7 @@ public class PanelComponent : UIComponent
     public const float MIN_PANEL_SIZE_Y = 30f;
 
     public bool IsFree => _anchor == EAnchorLocation.ANCHOR_None;
-    private EShadowLocation _shadowLocation = EShadowLocation.SHADOW_None;
+    protected EShadowLocation _shadowLocation = EShadowLocation.SHADOW_None;
     public int ShadowLocation 
     {
         get => (int)_shadowLocation;
@@ -51,16 +51,17 @@ public class PanelComponent : UIComponent
         get => _windowTint;
         set => _windowTint = value;
     }
-    private EScaleDirection _scaleDirection;                            // Direction we can scale this panel in
+    protected EScaleDirection _scaleDirection;                            // Direction we can scale this panel in
     public int ScaleDirection 
     {
         get => (int)ScaleDirection;
         private set => _scaleDirection = (EScaleDirection)value;
     }
     private bool _isScaling = false;                         // Flag if we are currently scaling
-    private Vector2 _lastMousePosition = Vector2.Zero;                        // Reference to the mouse position when we started scaling
-    private Vector2 _panelSize;
-    private Vector2 _shadowPosition;
+    public bool IsScaling => _isScaling;
+    protected Vector2 _lastMousePosition = Vector2.Zero;                        // Reference to the mouse position when we started scaling
+    protected Vector2 _panelSize;
+    protected Vector2 _shadowPosition;
 
     public override void Start()
     {
@@ -72,8 +73,29 @@ public class PanelComponent : UIComponent
 
     public override void Update(float dt)
     {
-        base.Update(dt);
-        _panelSize = Vector2.Zero;
+        base.Update(dt);        
+        
+        HandleStretchSizing();
+
+        // Toggle if we are scaling
+        if(!_isScaling)
+        {
+            _isScaling = IsMouseOverPanelEdge() && Input.IsMouseButtonClicked(EMouseButton.MOUSE_Left);
+        } else 
+        {
+            if(Input.IsMouseButtonReleased(EMouseButton.MOUSE_Left))
+                _isScaling = false;
+        }
+
+        HandleScale();
+        _lastMousePosition = Input.GetMousePosition(false);
+    }
+
+    /// <summary>
+    /// Handles setting the size of the panel
+    /// </summary>
+    private void HandleStretchSizing()
+    {
         switch(_stretch)
         {
             case EStretchType.STRETCH_Width:
@@ -89,19 +111,6 @@ public class PanelComponent : UIComponent
                 _panelSize = new Vector2(this.Width, this.Height);
                 break;
         }
-
-        // Toggle if we are scaling
-        if(!_isScaling)
-        {
-            _isScaling = IsMouseOverPanelEdge() && Input.IsMouseButtonClicked(EMouseButton.MOUSE_Left);
-        } else 
-        {
-            if(Input.IsMouseButtonReleased(EMouseButton.MOUSE_Left))
-                _isScaling = false;
-        }
-
-        HandleScale();
-        _lastMousePosition = Input.GetMousePosition(false);
     }
 
     /// <summary>
@@ -157,47 +166,6 @@ public class PanelComponent : UIComponent
         }
     }
 
-
-    private void CheckForResize()
-    {
-        if(_scaleDirection == EScaleDirection.SCALE_DIR_None)
-            return;
-
-        
-        if(Input.IsMouseButtonDown(EMouseButton.MOUSE_Left))
-        {
-            var mousePos = Input.GetMousePosition(false);
-
-            switch(_scaleDirection)
-            {
-                case EScaleDirection.SCALE_DIR_Left:
-                    var panelLeft = Owner.Transform.Position.X;
-                    var isOnLeftEdge = mousePos.X >= panelLeft && mousePos.X <= panelLeft + EDGE_DETECTION_THRESHOLD;
-                    _isScaling = isOnLeftEdge;
-                    break;
-                case EScaleDirection.SCALE_DIR_Right:
-                    var panelRight = Owner.Transform.Position.X + this.Width;
-                    var isOnRightEdge = mousePos.X <= panelRight && mousePos.X >= panelRight + EDGE_DETECTION_THRESHOLD;
-                    _isScaling = isOnRightEdge;
-                    if(isOnRightEdge)
-                        Debug.Print("PanelComponent::CheckForResize -> Mouse is over edge", EPrintMessageType.PRINT_Log);
-                    break;
-                case EScaleDirection.SCALE_DIR_Top:
-                    var panelTop = Owner.Transform.Position.Y;
-                    var isOnTopEdge = mousePos.Y >= panelTop && mousePos.Y <= panelTop + EDGE_DETECTION_THRESHOLD;
-                    _isScaling = isOnTopEdge;
-                    break;
-                case EScaleDirection.SCALE_DIR_Bottom:
-                    var panelBottom = Owner.Transform.Position.Y + this.Height;
-                    var isOnBottomEdge = mousePos.Y <= panelBottom && mousePos.Y >= panelBottom + EDGE_DETECTION_THRESHOLD;
-                    if(isOnBottomEdge)
-                        _isScaling = true;
-                    break;
-            }
-
-            _lastMousePosition = _isScaling ? mousePos : Vector2.Zero;
-        }
-    }
 
     private void UpdateShadowLocation()
     {
@@ -262,7 +230,7 @@ public class PanelComponent : UIComponent
     /// to scale the panel
     /// </summary>
     /// <returns>If the mouse is over the required edge</returns>
-    private bool IsMouseOverPanelEdge()
+    protected bool IsMouseOverPanelEdge()
     {
         if(_scaleDirection == EScaleDirection.SCALE_DIR_None)
             return false;
