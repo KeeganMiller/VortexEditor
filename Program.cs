@@ -9,9 +9,7 @@ public static class VortexEditor
     {
         Game.DefaultNamespace = "VortexEditor";
         Game.Initialize(args);
-        
-        // TODO: Add initial scene
-
+        SceneManager.AddScene(new Editor("Editor", "Scenes/Editor.vt"));
         Game.Run();
     }
 }

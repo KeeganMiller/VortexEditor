@@ -9,7 +9,7 @@ public class PanelComponent : UIComponent
 {
     public bool IsFree => Anchor == EAnchorLocation.ANCHOR_None;
 
-    private Vector2 WindowScale = Vector2.One;
+    public Vector2 WindowScale { get; private set;} = Vector2.One;
     private Color _windowTint = Color.Black;
     public Color WindowTint 
     {
@@ -20,7 +20,7 @@ public class PanelComponent : UIComponent
     public override void Start()
     {
         base.Start();
-        OwnerTransform.ScaleUpdateEvent += () => WindowScale = Owner.Transform.Scale;
+        Owner.Transform.ScaleUpdateEvent += () => WindowScale = Owner.Transform.Scale;
     }
 
     public override void Draw()

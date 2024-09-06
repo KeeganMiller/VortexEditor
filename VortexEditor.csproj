@@ -6,9 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Raylib-cs" Version="6.1.1" />
+    <PackageReference Include="Raylib-cs" Version="6.1.1"/>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Vortex\Vortex.csproj" />
+    <ProjectReference Include="..\Vortex\Vortex.csproj"/>
   </ItemGroup>
 </Project>
