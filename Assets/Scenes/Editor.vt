@@ -4,7 +4,7 @@ E#SceneView
 -Position:V(0,0)
 -Scale:V(1,1)
 -Rotation:F(0)
-@PanelComponent
+@CustomPanelComponent
 -Anchor:I(1)
 -ScaleDirection:I(2)
 -Origin:I(1)
@@ -23,7 +23,7 @@ E#Inspector
 -Position:V(0,0)
 -Scale:V(1,1)
 -Rotation:F(0)
-@PanelComponent
+@CustomPanelComponent
 -Anchor:I(3)
 -ScaleDirection:I(1)
 -Origin:I(3)
@@ -46,9 +46,9 @@ E#Inspector
 -Anchor:I(7)
 -ScaleDirection:I(3)
 -Origin:I(7)
--Stretch:I(0)
+-Stretch:I(1)
 -Width:F(600)
--Height:F(600)
+-Height:F(300)
 -ShadowDistance:I(5)
 -ShadowColor:C(0, 0, 0, 30)
 -ShadowLocation:I(4)
