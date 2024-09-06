@@ -1,0 +1,10 @@
+E#TestRect
+!IsActive:B(true)
+@TransformComponent:
+-Position:V(100,100)
+-Scale:V(1,1)
+-Rotation:F(0)
+@PanelComponent
+Width:F(300)
+Height:F(600)
+DrawDebugRect:B(false)
