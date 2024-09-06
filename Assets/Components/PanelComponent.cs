@@ -90,9 +90,6 @@ public class PanelComponent : UIComponent
                 break;
         }
 
-        if(IsMouseOver)
-            Debug.Print("Mouse is over panel", EPrintMessageType.PRINT_Log);
-
         // Toggle if we are scaling
         if(!_isScaling)
         {
