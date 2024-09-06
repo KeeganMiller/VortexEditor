@@ -17,9 +17,9 @@ public class CustomPanelComponent : PanelComponent
             _panelSize = new Vector2(this.Width, Game.WindowSettings.WindowHeight - BottomPanel.Height);
         }
 
-        if(_anchor == EAnchorLocation.ANCHOR_TopLeft || _anchor == EAnchorLocation.ANCHOR_TopCenter || _anchor ==EAnchorLocation.ANCHOR_TopRight)
+        if(_anchor == EAnchorLocation.ANCHOR_TopLeft || _anchor == EAnchorLocation.ANCHOR_TopCenter || _anchor == EAnchorLocation.ANCHOR_TopRight)
         {
-            _panelSize.Y -= 20;
+            _panelSize.Y -= 20 - _offset.X;
             SetAnchor(_anchor);
         }
     }
