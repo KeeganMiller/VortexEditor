@@ -1,3 +1,21 @@
+E#SceneView
+!IsActive:B(true)
+@TransformComponent
+-Position:V(0,0)
+-Scale:V(1,1)
+-Rotation:F(0)
+@PanelComponent
+-Anchor:I(1)
+-ScaleDirection:I(2)
+-Origin:I(1)
+-Stretch:I(2)
+-Width:F(300)
+-Height:F(600)
+-ShadowDistance:I(5)
+-ShadowColor:C(0, 0, 0, 30)
+-ShadowLocation:I(2)
+-WindowTint:C(74, 74, 74, 255)
+-DrawDebugRect:B(false)
 E#Inspector
 !IsActive:B(true)
 @TransformComponent
