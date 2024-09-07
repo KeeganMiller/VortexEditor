@@ -2,3 +2,11 @@ A#VortexLogo
 -AssetId:I(0)
 -AssetPath:S(Textures/VortexLogo.png)
 -AssetType:S(Texture)
+A#RobotoBlack
+-AssetId:(1)
+-AssetPath:S(Fonts/Roboto/Roboto-Black.ttf)
+-AssetType:S(Font)
+A#RobotoItalic
+-AssetId:I(2)
+-AssetPath:S(Fonts/Roboto/Roboto-Italic.ttf)
+-AssetType:S(Font)

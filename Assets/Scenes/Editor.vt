@@ -1,5 +1,6 @@
 E#Toolbar
 -IsActive:B(true)
+-ObjectId:S(fd_1)
 @TransformComponent
 -Position:V(0,0)
 -Rotation:F(0)
@@ -11,3 +12,13 @@ E#Toolbar
 -Height:F(30)
 -Width:F(300)
 -ToolbarColor:C(255,255,255,255)
+
+E#File
+-IsActive:B(true)
+-ObjectId:S(fd_2)
+-ElementParentId:S(fd_1)
+@TransformComponent
+-Position:V(0,0)
+-Rotation:F(0)
+-Scale:V(1,1)
+@TextComponent
