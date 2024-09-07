@@ -4,7 +4,7 @@ A#VortexLogo
 -AssetType:S(Texture)
 A#RobotoBlack
 -AssetId:S(Asset_1)
--AssetPath:S(Fonts/Roboto/Roboto-Medium.ttf)
+-AssetPath:S(Fonts/Roboto/Roboto-Regular.ttf)
 -AssetType:S(Font)
 A#RobotoItalic
 -AssetId:S(Asset_2)

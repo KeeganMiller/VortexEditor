@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Vortex;
 using Raylib_cs;
 using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
 
 namespace VortexEditor;
 
@@ -18,7 +19,7 @@ public class ToolbarComponent : UIComponent
 {
     // == Shadow Properties == //
     public Color ToolbarColor { get; set; } = new Color(255, 255, 255, 255);
-    public Color ShadowColor { get; set; } = new Color(0, 0, 0, 100);
+    public Color ShadowColor { get; set; } = new Color(32, 32, 32, 50);
     public float ShadowDistance { get; set; } = 5f;
     public Vector2 ShadowOffset { get; set; } = Vector2.Zero;
     private EShadowDirection _shadowDirection = EShadowDirection.SHADOW_None;
@@ -32,6 +33,15 @@ public class ToolbarComponent : UIComponent
         set => _shadowDirection = (EShadowDirection)value;
     }
 
+    // == Option Components == //
+    private string? FileTextCompId { get; set; }
+    private string? FileDropdownId { get; set; }
+    
+    private TextComponent? _fileTextComp;
+    private MenuDropdown? _fileDropdownComponent;
+
+    private MenuDropdown? _activeDropdown = null;                       // Reference to the current dropdown being displayed if any
+
     public override void Initialize(Element owner)
     {
         base.Initialize(owner);
@@ -42,6 +52,9 @@ public class ToolbarComponent : UIComponent
     {
         base.Start();
         UpdateShadowPosition();
+
+        GetFileDropdownAndButton();
+
     }
 
     public override void Update(float dt)
@@ -81,6 +94,34 @@ public class ToolbarComponent : UIComponent
                     _shadowPosition = new Vector2(OwnerTransform.Position.X + ShadowOffset.X, OwnerTransform.Position.Y + (ShadowDistance + ShadowOffset.Y));
                     break;
             }
+        }
+    }
+
+    /// <summary>
+    /// Handles displaying the dropdown
+    /// </summary>
+    /// <param name="dropdown">Dropdown to set active</param>
+    public void ToggleDropdown(MenuDropdown? dropdown)
+    {
+        if(_activeDropdown != null && _activeDropdown != dropdown)
+        {
+            _activeDropdown.IsActive = false;
+            _activeDropdown = dropdown;
+
+            if(_activeDropdown != null)
+                _activeDropdown.IsActive = true;
+        }
+    }
+
+    private void GetFileDropdownAndButton()
+    {
+        if(!string.IsNullOrEmpty(FileTextCompId))
+            _fileTextComp = (TextComponent)Component.FindComponentById(FileTextCompId);
+
+        if(_fileTextComp != null)
+        {
+            _fileTextComp.OnMouseEnter += () => Debug.Print("Open File", EPrintMessageType.PRINT_Log);
+            _fileTextComp.OnMouseExit += () => Debug.Print("Close File", EPrintMessageType.PRINT_Log);
         }
     }
 }
