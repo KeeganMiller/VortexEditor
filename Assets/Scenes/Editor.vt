@@ -1,58 +1,13 @@
-E#SceneView
-!IsActive:B(true)
+E#Toolbar
+-IsActive:B(true)
 @TransformComponent
 -Position:V(0,0)
--Scale:V(1,1)
 -Rotation:F(0)
-@CustomPanelComponent
--Offset:V(0, 100)
+-Scale:V(1,1)
+@ToolbarComponent
 -Anchor:I(1)
--ScaleDirection:I(2)
 -Origin:I(1)
--Stretch:I(2)
--Width:F(300)
--Height:F(600)
--ShadowDistance:I(5)
--ShadowColor:C(0, 0, 0, 30)
--ShadowLocation:I(2)
--WindowTint:C(74, 74, 74, 255)
--DrawDebugRect:B(false)
-
-E#Inspector
-!IsActive:B(true)
-@TransformComponent
--Offset:V(0, 100)
--Position:V(0,0)
--Scale:V(1,1)
--Rotation:F(0)
-@CustomPanelComponent
--Anchor:I(3)
--ScaleDirection:I(1)
--Origin:I(3)
--Stretch:I(2)
--Width:F(300)
--Height:F(600)
--ShadowDistance:I(5)
--ShadowColor:C(0, 0, 0, 30)
--ShadowLocation:I(1)
--WindowTint:C(74, 74, 74, 255)
--DrawDebugRect:B(false)
-
-E#Assets
-!IsActive:B(true)
-@TransformComponent
--Position:V(0,0)
--Scale:V(1,1)
--Rotation:F(0)
-@PanelComponent
--Anchor:I(7)
--ScaleDirection:I(3)
--Origin:I(7)
 -Stretch:I(1)
--Width:F(600)
--Height:F(300)
--ShadowDistance:I(5)
--ShadowColor:C(0, 0, 0, 30)
--ShadowLocation:I(4)
--WindowTint:C(74, 74, 74, 255)
--DrawDebugRect:B(false)
+-Height:F(30)
+-Width:F(300)
+-ToolbarColor:C(255,255,255,255)
