@@ -54,12 +54,12 @@ public class ToolbarComponent : UIComponent
         UpdateShadowPosition();
 
         GetFileDropdownAndButton();
-
     }
 
     public override void Update(float dt)
     {
         base.Update(dt);
+        Debug.Print($"element: {_fileDropdownComponent?.Owner.IsActive} - Component: {_fileDropdownComponent?.IsActive}", EPrintMessageType.PRINT_Log);
     }
 
     public override void Draw()
@@ -103,14 +103,16 @@ public class ToolbarComponent : UIComponent
     /// <param name="dropdown">Dropdown to set active</param>
     public void ToggleDropdown(MenuDropdown? dropdown)
     {
+
         if(_activeDropdown != null && _activeDropdown != dropdown)
         {
             _activeDropdown.IsActive = false;
-            _activeDropdown = dropdown;
-
-            if(_activeDropdown != null)
-                _activeDropdown.IsActive = true;
         }
+
+        _activeDropdown = dropdown;
+
+        if(_activeDropdown != null)
+            _activeDropdown.IsActive = true;
     }
 
     private void GetFileDropdownAndButton()
@@ -118,10 +120,13 @@ public class ToolbarComponent : UIComponent
         if(!string.IsNullOrEmpty(FileTextCompId))
             _fileTextComp = (TextComponent)Component.FindComponentById(FileTextCompId);
 
+        if(!string.IsNullOrEmpty(FileDropdownId))
+            _fileDropdownComponent = (MenuDropdown)Component.FindComponentById(FileDropdownId);
+
         if(_fileTextComp != null)
         {
-            _fileTextComp.OnMouseEnter += () => Debug.Print("Open File", EPrintMessageType.PRINT_Log);
-            _fileTextComp.OnMouseExit += () => Debug.Print("Close File", EPrintMessageType.PRINT_Log);
+            _fileTextComp.OnMouseEnter += () => ToggleDropdown(_fileDropdownComponent);
+            _fileTextComp.OnMouseExit += () => ToggleDropdown(null);
         }
     }
 }
