@@ -59,7 +59,6 @@ public class ToolbarComponent : UIComponent
     public override void Update(float dt)
     {
         base.Update(dt);
-        Debug.Print($"element: {_fileDropdownComponent?.Owner.IsActive} - Component: {_fileDropdownComponent?.IsActive}", EPrintMessageType.PRINT_Log);
     }
 
     public override void Draw()

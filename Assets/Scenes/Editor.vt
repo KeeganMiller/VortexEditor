@@ -62,6 +62,22 @@ E#FileDropdown
 -HorizontalAlignmentValue:I(2)
 -VerticalAlignmentValue:I(1)
 
+E#SaveBtnText
+-IsActive:B(false)
+-ObjectId:S(SaveBtnTextElement)
+-ElementParentId:S(de_33)
+@TransformComponent
+-ComponentId:S(SaveBtnTextTransform)
+@TextComponent
+-ComponentId:S(SaveBtnTextComp)
+-IsActive:B(true)
+-Text:S(Save Scene)
+-FontId:S(Asset_1)
+-ShaderId:S(Asset_3)
+-Anchor:I(5)
+-Origin:I(5)
+-Offset:V(50,0)
+
 
 
 
