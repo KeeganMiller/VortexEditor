@@ -60,7 +60,14 @@ public class ToolbarComponent : UIComponent
     public override void Update(float dt)
     {
         base.Update(dt);
-        HandleOverDropdown();
+
+        if(Input.IsMouseButtonClicked(EMouseButton.MOUSE_Left))
+        {
+            if(_activeDropdown != null && !_activeDropdown.IsMouseOver)
+            {
+                ToggleDropdown(null);
+            }
+        }
     }
 
     public override void Draw()
@@ -72,23 +79,6 @@ public class ToolbarComponent : UIComponent
         }
 
         Raylib.DrawRectangleRec(new Rectangle(OwnerTransform.Position, Width * OwnerTransform.Scale.X, Height * OwnerTransform.Scale.Y), ToolbarColor);
-
-        
-    }
-
-    private void HandleOverDropdown()
-    {
-        if(_activeDropdown != null)
-        {
-            if(_isOverDropdwn && !_activeDropdown.IsMouseOver)
-            {
-                _isOverDropdwn = true;
-            } else if(!_isOverDropdwn && _activeDropdown.IsMouseOver)
-            {
-                ToggleDropdown(null);
-                _isOverDropdwn = false;
-            }
-        }
     }
 
     public void UpdateShadowPosition()
@@ -139,14 +129,17 @@ public class ToolbarComponent : UIComponent
         if(!string.IsNullOrEmpty(FileDropdownId))
             _fileDropdownComponent = (MenuDropdown)Component.FindComponentById(FileDropdownId);
 
-        if(_fileTextComp != null)
+        if(_fileTextComp != null && _fileDropdownComponent != null)
         {
-            _fileTextComp.OnMouseEnter += () => ToggleDropdown(_fileDropdownComponent);
-            _fileTextComp.OnMouseExit += () => 
+            _fileTextComp.IsClickable = true;
+            _fileTextComp.OnClick += () => 
             {
-                if(_fileDropdownComponent != null && !_fileDropdownComponent.IsMouseOver)
+                if(_activeDropdown == _fileDropdownComponent && _fileDropdownComponent.IsActive)
                 {
                     ToggleDropdown(null);
+                } else 
+                {
+                    ToggleDropdown(_fileDropdownComponent);
                 }
             };
         }

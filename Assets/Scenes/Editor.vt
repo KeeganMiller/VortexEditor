@@ -38,7 +38,8 @@ E#Scene
 -Scale:V(1,1)
 @TextComponent
 -ComponentId:S(Comp_7)
--FontId:S(Asset_1)
+-NormalFontId:S(Asset_1)
+-HoverFontId:S(Asset_2)
 -ShaderId:S(Asset_3)
 -Text:S(Scene)
 -Anchor:I(1)
@@ -61,63 +62,35 @@ E#SceneDropdown
 -Offset:V(-15, 0)
 @VerticalBox
 -ComponentId:S(SceneDropdownVBox)
+-HorizontalAlignmentValue:I(2)
 
-
-E#Components
--IsActive:B(true)
--ObjectId:S(ComponentsDropdownText)
--ElementParentId:S(fd_1)
+E#NewScene
+-IsActive:B(false)
+-ObjectId:S(NewSceneBtn)
+-ElementParentId:S(SceneDropdown)
 @TransformComponent
-@TextComponent
--ComponentId:S(Components_DropdownText)
--FontId:S(Asset_1)
--ShaderId:S(Asset_3)
--Text:S(Components)
--Anchor:I(1)
--Origin:I(1)
--FontColor:C(255, 255, 255, 255)
-
-E#Input
+-ComponentId:S(NewSceneBtnTransform)
+@RawButton
 -IsActive:B(true)
--ObjectId:S(InputDropdownText)
--ElementParentId:S(fd_1)
-@TransformComponent
-@TextComponent
--ComponentId:S(Input_DropdownText)
--FontId:S(Asset_1)
--ShaderId:S(Asset_3)
--Text:S(Input)
--Anchor:I(1)
--Origin:I(1)
--FontColor:C(255, 255, 255, 255)
+-ComponentId:S(NewSceneRawBtn)
+-Stretch:I(1)
+-Width:F(100)
+-Height:F(30)
 
-E#Project
--IsActive:B(true)
--ObjectId:S(ProjectDropdownText)
--ElementParentId:S(fd_1)
+E#NewSceneBtnText
+-IsActive:B(false)
+-ObjectId:S(NewSceneBtnText)
+-ElementParentId:S(NewSceneBtn)
 @TransformComponent
+-ComponentId:S(NewSceneBtnTextTransform)
 @TextComponent
--ComponentId:S(ProjectDropdownTextComp)
--FontId:S(Asset_1)
+-ComponentId:S(NewSceneBtnTextComp)
+-NormalFontId:S(Asset_1)
 -ShaderId:S(Asset_3)
--Text:S(Project)
--Anchor:I(1)
--Origin:I(1)
--FontColor:C(255, 255, 255, 255)
+-Text:S(New Scene)
+-FontColor:C(36, 36, 36, 255)
+-Offset:V(100,100)
 
-E#Windows
--IsActive:B(true)
--ObjectId:S(WindowDropdownText)
--ElementParentId:S(fd_1)
-@TransformComponent
-@TextComponent
--ComponentId:S(WindowDropdownTextComp)
--FontId:S(Asset_1)
--ShaderId:S(Asset_3)
--Text:S(Windows)
--Anchor:I(1)
--Origin:I(1)
--FontColor:C(255, 255, 255, 255)
 
 
 
