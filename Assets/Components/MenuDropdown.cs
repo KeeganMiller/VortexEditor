@@ -19,13 +19,15 @@ public class MenuDropdown : UIComponent
     {
         base.Start();
         _vbox = Owner.GetComponent<VerticalBox>();
-
-        
     }
 
     public override void Update(float dt)
     {
         base.Update(dt);
+        if(_vbox != null)
+        {
+            this.Height = _vbox.Height;
+        }
     }
 
     public override void Draw()
