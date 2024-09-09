@@ -33,6 +33,7 @@ public class MenuDropdown : UIComponent
         base.Draw();
         if(_vbox != null && Width > 0 && Height > 0)
         {
+            Raylib.DrawRectangleRec(new Rectangle(OwnerTransform.Position.X + 5, OwnerTransform.Position.Y + 5, Width * OwnerTransform.Scale.X, Height * OwnerTransform.Scale.Y), new Color(0, 0, 0, 30));
             Raylib.DrawRectangleRec(new Rectangle(OwnerTransform.Position, Width * OwnerTransform.Scale.X, Height * OwnerTransform.Scale.Y), Color.RayWhite);
         }
     }

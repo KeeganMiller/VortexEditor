@@ -13,10 +13,10 @@ E#Toolbar
 -Stretch:I(1)
 -Height:F(30)
 -Width:F(300)
--ToolbarColor:C(255,255,255,255)
+-ToolbarColor:C(56, 56, 56, 255)
 -ShadowDirection:I(4)
 -FileTextCompId:S(Comp_7)
--FileDropdownId:S(Comp_44)
+-FileDropdownId:S(SceneDropdownComp)
 @HorizontalBox
 -ComponentId:S(Comp_3)
 -OwningUiCompId:S(Comp_2)
@@ -24,8 +24,10 @@ E#Toolbar
 -VerticalAlignmentValue:I(2)
 -VerticalAlignmentOffset:F(-8)
 -PaddingLeft:F(20)
+-UseChildrenWidth:B(true)
+-UseChildrenHeight:B(true)
 
-E#File
+E#Scene
 -IsActive:B(true)
 -ObjectId:S(FileRawBtn_0)
 -ElementParentId:S(fd_1)
@@ -38,46 +40,84 @@ E#File
 -ComponentId:S(Comp_7)
 -FontId:S(Asset_1)
 -ShaderId:S(Asset_3)
--Text:S(File)
+-Text:S(Scene)
 -Anchor:I(1)
 -Origin:I(1)
--DrawDebugRect:B(true)
+-FontColor:C(255, 255, 255, 255)
 
-E#FileDropdown
+E#SceneDropdown
 -IsActive:B(false)
--ObjectId:S(de_33)
+-ObjectId:S(SceneDropdown)
+-ElementParentId:S(FileRawBtn_0)
+@TransformComponent
+-ComponentId:S(SceneDropdown)
+@MenuDropdown
+-ComponentId:S(SceneDropdownComp)
+-IsActive:B(false)
+-Width:F(35)
+-Height:F(300)
+-Anchor:I(8)
+-Origin:I(2)
+-Offset:V(-15, 0)
+@VerticalBox
+-ComponentId:S(SceneDropdownVBox)
+
+
+E#Components
+-IsActive:B(true)
+-ObjectId:S(ComponentsDropdownText)
 -ElementParentId:S(fd_1)
 @TransformComponent
--ComponentId:S(Comp_45)
--Position:V(10,50)
--Rotation:F(0)
--Scale:V(1,1)
-@MenuDropdown
--ComponentId:S(Comp_44)
--IsActive:B(false)
--Width:F(100)
--Height:F(100)
-@VerticalBox
--ComponentId:S(Comp_46)
--HorizontalAlignmentValue:I(2)
--VerticalAlignmentValue:I(1)
-
-E#SaveBtnText
--IsActive:B(false)
--ObjectId:S(SaveBtnTextElement)
--ElementParentId:S(de_33)
-@TransformComponent
--ComponentId:S(SaveBtnTextTransform)
 @TextComponent
--ComponentId:S(SaveBtnTextComp)
--IsActive:B(true)
--Text:S(Save Scene)
+-ComponentId:S(Components_DropdownText)
 -FontId:S(Asset_1)
 -ShaderId:S(Asset_3)
--Anchor:I(5)
--Origin:I(5)
--Offset:V(50,0)
+-Text:S(Components)
+-Anchor:I(1)
+-Origin:I(1)
+-FontColor:C(255, 255, 255, 255)
 
+E#Input
+-IsActive:B(true)
+-ObjectId:S(InputDropdownText)
+-ElementParentId:S(fd_1)
+@TransformComponent
+@TextComponent
+-ComponentId:S(Input_DropdownText)
+-FontId:S(Asset_1)
+-ShaderId:S(Asset_3)
+-Text:S(Input)
+-Anchor:I(1)
+-Origin:I(1)
+-FontColor:C(255, 255, 255, 255)
+
+E#Project
+-IsActive:B(true)
+-ObjectId:S(ProjectDropdownText)
+-ElementParentId:S(fd_1)
+@TransformComponent
+@TextComponent
+-ComponentId:S(ProjectDropdownTextComp)
+-FontId:S(Asset_1)
+-ShaderId:S(Asset_3)
+-Text:S(Project)
+-Anchor:I(1)
+-Origin:I(1)
+-FontColor:C(255, 255, 255, 255)
+
+E#Windows
+-IsActive:B(true)
+-ObjectId:S(WindowDropdownText)
+-ElementParentId:S(fd_1)
+@TransformComponent
+@TextComponent
+-ComponentId:S(WindowDropdownTextComp)
+-FontId:S(Asset_1)
+-ShaderId:S(Asset_3)
+-Text:S(Windows)
+-Anchor:I(1)
+-Origin:I(1)
+-FontColor:C(255, 255, 255, 255)
 
 
 

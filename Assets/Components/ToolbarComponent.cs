@@ -39,6 +39,7 @@ public class ToolbarComponent : UIComponent
     
     private TextComponent? _fileTextComp;
     private MenuDropdown? _fileDropdownComponent;
+    private bool _isOverDropdwn = false;                            // Flag if the mouse is over the dropdown
 
     private MenuDropdown? _activeDropdown = null;                       // Reference to the current dropdown being displayed if any
 
@@ -59,6 +60,7 @@ public class ToolbarComponent : UIComponent
     public override void Update(float dt)
     {
         base.Update(dt);
+        HandleOverDropdown();
     }
 
     public override void Draw()
@@ -72,6 +74,21 @@ public class ToolbarComponent : UIComponent
         Raylib.DrawRectangleRec(new Rectangle(OwnerTransform.Position, Width * OwnerTransform.Scale.X, Height * OwnerTransform.Scale.Y), ToolbarColor);
 
         
+    }
+
+    private void HandleOverDropdown()
+    {
+        if(_activeDropdown != null)
+        {
+            if(_isOverDropdwn && !_activeDropdown.IsMouseOver)
+            {
+                _isOverDropdwn = true;
+            } else if(!_isOverDropdwn && _activeDropdown.IsMouseOver)
+            {
+                ToggleDropdown(null);
+                _isOverDropdwn = false;
+            }
+        }
     }
 
     public void UpdateShadowPosition()
@@ -125,7 +142,13 @@ public class ToolbarComponent : UIComponent
         if(_fileTextComp != null)
         {
             _fileTextComp.OnMouseEnter += () => ToggleDropdown(_fileDropdownComponent);
-            _fileTextComp.OnMouseExit += () => ToggleDropdown(null);
+            _fileTextComp.OnMouseExit += () => 
+            {
+                if(_fileDropdownComponent != null && !_fileDropdownComponent.IsMouseOver)
+                {
+                    ToggleDropdown(null);
+                }
+            };
         }
     }
 }
