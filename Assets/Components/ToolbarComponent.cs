@@ -36,9 +36,26 @@ public class ToolbarComponent : UIComponent
     // == Option Components == //
     private string? FileTextCompId { get; set; }
     private string? FileDropdownId { get; set; }
+    private string? ElementTextCompId { get; set; }
+    private string? ElementDropdownId { get; set; }
+    private string? ComponentTextCompId { get; set; }
+    private string? ComponentDropdownId { get; set; }
+    private string? ProjectDropdownId { get; set; }
+    private string? ProjectTextCompId { get; set; }
+    private string? ToolsTextCompId { get; set; }
+    private string? ToolsDropdownId { get; set; }
     
     private TextComponent? _fileTextComp;
     private MenuDropdown? _fileDropdownComponent;
+    private TextComponent? _elementTextComp;
+    private MenuDropdown? _elementDropdownComponent;
+    private TextComponent? _componentTextComp;
+    private MenuDropdown? _componentDropdownComponent;
+    private TextComponent? _projectTextComp;
+    private MenuDropdown? _projectDropdownComponent;
+    private TextComponent? _toolsTextComp;
+    private MenuDropdown? _toolsDropdownComponent;
+
     private bool _isOverDropdwn = false;                            // Flag if the mouse is over the dropdown
 
     private MenuDropdown? _activeDropdown = null;                       // Reference to the current dropdown being displayed if any
@@ -55,6 +72,10 @@ public class ToolbarComponent : UIComponent
         UpdateShadowPosition();
 
         GetFileDropdownAndButton();
+        GetElementDropdownAndButton();
+        GetComponentDropdownAndButton();
+        GetProjectDropdownAndButton();
+        GetToolsDropdownAndButton();
     }
 
     public override void Update(float dt)
@@ -140,6 +161,102 @@ public class ToolbarComponent : UIComponent
                 } else 
                 {
                     ToggleDropdown(_fileDropdownComponent);
+                }
+            };
+        }
+    }
+
+    private void GetElementDropdownAndButton()
+    {
+        if(!string.IsNullOrEmpty(ElementTextCompId))
+            _elementTextComp = (TextComponent)Component.FindComponentById(ElementTextCompId);
+
+        if(!string.IsNullOrEmpty(ElementDropdownId))
+            _elementDropdownComponent = (MenuDropdown)Component.FindComponentById(ElementDropdownId);
+
+        if(_elementTextComp != null && _elementDropdownComponent != null)
+        {
+            _elementTextComp.IsClickable = true;
+            _elementTextComp.OnClick += () =>
+            {
+                if(_activeDropdown == _elementDropdownComponent && _elementDropdownComponent.IsActive)
+                {
+                    ToggleDropdown(null);
+                } else 
+                {
+                    ToggleDropdown(_elementDropdownComponent);
+                }
+            };
+        }
+    }
+
+    private void GetComponentDropdownAndButton()
+    {
+        if(!string.IsNullOrEmpty(ComponentTextCompId))
+            _componentTextComp = (TextComponent)Component.FindComponentById(ComponentTextCompId);
+
+        if(!string.IsNullOrEmpty(ComponentDropdownId))
+            _componentDropdownComponent = (MenuDropdown)Component.FindComponentById(ComponentDropdownId);
+
+        if(_componentTextComp != null && _componentDropdownComponent != null)
+        {
+            _componentTextComp.IsClickable = true;
+            _componentTextComp.OnClick += () => 
+            {
+                if(_activeDropdown == _componentDropdownComponent && _componentDropdownComponent.IsActive)
+                {
+                    ToggleDropdown(null);
+                } else 
+                {
+                    ToggleDropdown(_componentDropdownComponent);
+                }
+            };
+        }
+    }
+
+    private void GetProjectDropdownAndButton()
+    {
+        if(!string.IsNullOrEmpty(ProjectTextCompId))
+            _projectTextComp = (TextComponent)Component.FindComponentById(ProjectTextCompId);
+
+        if(!string.IsNullOrEmpty(ProjectDropdownId))
+            _projectDropdownComponent = (MenuDropdown)Component.FindComponentById(ProjectDropdownId);
+
+        if(_projectDropdownComponent != null && _projectTextComp != null)
+        {
+            _projectTextComp.IsClickable = true;
+            _projectTextComp.OnClick += () => 
+            {
+                if(_activeDropdown == _projectDropdownComponent && _projectDropdownComponent.IsActive)
+                {
+                    ToggleDropdown(null);
+                } else 
+                {
+                    ToggleDropdown(_projectDropdownComponent);
+                }
+            };
+        }
+    }
+
+    private void GetToolsDropdownAndButton()
+    {
+        if(!string.IsNullOrEmpty(ToolsTextCompId))
+            _toolsTextComp = (TextComponent)Component.FindComponentById(ToolsTextCompId);
+
+        if(!string.IsNullOrEmpty(ToolsDropdownId))
+            _toolsDropdownComponent = (MenuDropdown)Component.FindComponentById(ToolsDropdownId);
+
+        if(_toolsTextComp != null && _toolsDropdownComponent != null)
+        {
+            _toolsTextComp.IsClickable = true;
+            _toolsTextComp.OnClick += () => 
+            {
+                if(_activeDropdown == _toolsDropdownComponent && _toolsDropdownComponent.IsActive)
+                {
+                    ToggleDropdown(null);
+                } else 
+                {
+                    ToggleDropdown(_toolsDropdownComponent);
                 }
             };
         }
