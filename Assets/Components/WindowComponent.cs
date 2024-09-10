@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Numerics;
 using Raylib_cs;
 using Vortex;
@@ -34,6 +35,8 @@ public class WindowComponent : UIComponent
     {
         base.Update(dt);
         _headerPosition = new Vector2(Owner.Transform.Position.X, Owner.Transform.Position.Y - 10);
+
+        Debug.Print(IsOverHeader(), EPrintMessageType.PRINT_Custom, ConsoleColor.DarkCyan);
     }
 
     public override void Draw()
@@ -47,6 +50,15 @@ public class WindowComponent : UIComponent
         }
     }
 
+    private bool IsOverHeader()
+    {
+        var mousePos = Input.GetMousePosition(false);
+        var top = _headerPosition.Y;
+        var bottom = _headerPosition.Y + _headerHeight * Owner.Transform.Scale.Y;
+        var left = _headerPosition.X;
+        var right = _headerPosition.X + Width * Owner.Transform.Scale.X;
+
+        return mousePos.X > left && mousePos.X < right && mousePos.Y > top && mousePos.Y < bottom;
     }
 
     private void CreateTextComponent()
