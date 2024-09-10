@@ -20,23 +20,32 @@ public class ToolsDropdownButtons : UIComponent
     private void CreateNewGameEditorWindowBtn(ResourceManager resources)
     {
         if(!string.IsNullOrEmpty(NewGameEditorWindowBtnId))
-            _newGameEditorWindowBtn = (RawButton)Component.FindComponentById(NewGameEditorWindowBtnId);
+            _newGameEditorWindowBtn = resources.GetComponentById<RawButton>(NewGameEditorWindowBtnId);
 
         if(_newGameEditorWindowBtn != null)
         {
             _newGameEditorWindowBtn.OnClick = () => 
             {
-                Debug.Print("New Game Window Clicked", EPrintMessageType.PRINT_Log);
-                var window = new Element("NewGameEditorWindow");
+                var window = new Element("NewGameEditorWindow");                    // Create th element
+                Owner.Owner.AddElement(window);
+                // Create the transform
+                var trans = new TransformComponent
+                {
+                    Position = new Vector2(300, 300),
+                    Scale = Vector2.One
+                };
+                window.SetTransform(trans);                     // Assign the transform
+
+                // Create the window component
                 var windowComp = new WindowComponent()
                 {
                     ComponentId = Guid.NewGuid().ToString(),
                     WindowName = "Game Editor",
-                    Width = Game.WindowSettings.WindowWidth / 0.3f,
-                    Height = Game.WindowSettings.WindowHeight / 0.3f
+                    Width = 500,
+                    Height = 500
                 };
-                window.AddComponent(windowComp);
-                Owner.Owner.AddElement(window);
+                window.AddComponent(windowComp);                // Add the window component
+                
             };
         }
     }
