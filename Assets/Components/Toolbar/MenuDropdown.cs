@@ -28,6 +28,15 @@ public class MenuDropdown : UIComponent
         {
             this.Height = _vbox.Height;
         }
+
+        if(_vbox != null)
+        {
+            if(_vbox.UseChildrenWidth)
+                this.Width = _vbox.Width;
+            
+            if(_vbox.UseChildrenHeight)
+                this.Height = _vbox.Height;
+        }
     }
 
     public override void Draw()
