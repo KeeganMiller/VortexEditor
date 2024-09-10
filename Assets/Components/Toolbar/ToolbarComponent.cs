@@ -66,16 +66,22 @@ public class ToolbarComponent : UIComponent
         Owner.Transform.PositionUpdateEvent += UpdateShadowPosition;
     }
 
-    public override void Start()
+    public override void Constructor()
     {
-        base.Start();
-        UpdateShadowPosition();
-
+        base.Constructor();
         GetFileDropdownAndButton();
         GetElementDropdownAndButton();
         GetComponentDropdownAndButton();
         GetProjectDropdownAndButton();
         GetToolsDropdownAndButton();
+    }
+
+    public override void Start()
+    {
+        base.Start();
+        UpdateShadowPosition();
+
+        
     }
 
     public override void Update(float dt)
