@@ -66,14 +66,35 @@ public class ToolbarComponent : UIComponent
         Owner.Transform.PositionUpdateEvent += UpdateShadowPosition;
     }
 
-    public override void Constructor()
+    public override void Constructor(ResourceManager resources)
     {
-        base.Constructor();
-        GetFileDropdownAndButton();
-        GetElementDropdownAndButton();
-        GetComponentDropdownAndButton();
-        GetProjectDropdownAndButton();
-        GetToolsDropdownAndButton();
+        base.Constructor(resources);
+        // Scene Dropdown
+        SetupDropdown(FileTextCompId, FileDropdownId, out _fileTextComp, out _fileDropdownComponent, resources);
+        if(_fileTextComp != null && _fileDropdownComponent != null)
+            _fileTextComp.OnClick += () => ToggleDropdown(_fileDropdownComponent.IsActive ? null : _fileDropdownComponent);
+
+        // Element Dropdown
+        SetupDropdown(ElementTextCompId, ElementDropdownId, out _elementTextComp, out _elementDropdownComponent, resources);
+        if(_elementTextComp != null && _elementDropdownComponent != null)
+            _elementTextComp.OnClick += () => ToggleDropdown(_elementDropdownComponent.IsActive ? null : _elementDropdownComponent);
+
+        // Comnponent Dropdown
+        SetupDropdown(ComponentTextCompId, ComponentDropdownId, out _componentTextComp, out _componentDropdownComponent, resources);
+        if(_componentTextComp != null && _componentDropdownComponent != null)
+            _componentTextComp.OnClick += () => ToggleDropdown(_componentDropdownComponent.IsActive ? null : _componentDropdownComponent);
+
+        // Project Dropdown
+        SetupDropdown(ProjectTextCompId, ProjectDropdownId, out _projectTextComp, out _projectDropdownComponent, resources);
+        if(_projectTextComp != null && _projectDropdownComponent != null)
+            _projectTextComp.OnClick += () => ToggleDropdown(_projectDropdownComponent.IsActive ? null : _projectDropdownComponent);
+
+        // Tools Dropdown
+        SetupDropdown(ToolsTextCompId, ToolsDropdownId, out _toolsTextComp, out _toolsDropdownComponent, resources);
+        if(_toolsTextComp != null && _toolsDropdownComponent != null)
+            _toolsTextComp.OnClick += () => ToggleDropdown(_toolsDropdownComponent.IsActive ? null : _toolsDropdownComponent);
+
+        
     }
 
     public override void Start()
@@ -148,7 +169,27 @@ public class ToolbarComponent : UIComponent
             _activeDropdown.IsActive = true;
     }
 
-    private void GetFileDropdownAndButton()
+    private void SetupDropdown(string textId, string dropdownId, out TextComponent textComp, out MenuDropdown dropdownComp, ResourceManager resources)
+    {
+        TextComponent text = null;
+        MenuDropdown dropdown = null;
+        if(!string.IsNullOrEmpty(textId))
+            text = resources.GetComponentById<TextComponent>(textId);
+
+        if(!string.IsNullOrEmpty(dropdownId))
+            dropdown = resources.GetComponentById<MenuDropdown>(dropdownId);
+
+        if(text != null && dropdown != null)
+        {
+            text.IsClickable = true;
+        }
+
+        textComp = text;
+        dropdownComp = dropdown;
+    }
+
+    /*
+    private void GetFileDropdownAndButton(ResourceManager resources)
     {
         if(!string.IsNullOrEmpty(FileTextCompId))
             _fileTextComp = (TextComponent)Component.FindComponentById(FileTextCompId);
@@ -172,7 +213,7 @@ public class ToolbarComponent : UIComponent
         }
     }
 
-    private void GetElementDropdownAndButton()
+    private void GetElementDropdownAndButton(ResourceManager resources)
     {
         if(!string.IsNullOrEmpty(ElementTextCompId))
             _elementTextComp = (TextComponent)Component.FindComponentById(ElementTextCompId);
@@ -196,13 +237,15 @@ public class ToolbarComponent : UIComponent
         }
     }
 
-    private void GetComponentDropdownAndButton()
+    
+
+    private void GetComponentDropdownAndButton(ResourceManager resources)
     {
         if(!string.IsNullOrEmpty(ComponentTextCompId))
-            _componentTextComp = (TextComponent)Component.FindComponentById(ComponentTextCompId);
+            _componentTextComp = resources.GetComponentById<TextComponent>(ComponentTextCompId);
 
         if(!string.IsNullOrEmpty(ComponentDropdownId))
-            _componentDropdownComponent = (MenuDropdown)Component.FindComponentById(ComponentDropdownId);
+            _componentDropdownComponent = resources.GetComponentById<MenuDropdown>(ComponentDropdownId);
 
         if(_componentTextComp != null && _componentDropdownComponent != null)
         {
@@ -220,7 +263,7 @@ public class ToolbarComponent : UIComponent
         }
     }
 
-    private void GetProjectDropdownAndButton()
+    private void GetProjectDropdownAndButton(ResourceManager resources)
     {
         if(!string.IsNullOrEmpty(ProjectTextCompId))
             _projectTextComp = (TextComponent)Component.FindComponentById(ProjectTextCompId);
@@ -244,7 +287,7 @@ public class ToolbarComponent : UIComponent
         }
     }
 
-    private void GetToolsDropdownAndButton()
+    private void GetToolsDropdownAndButton(ResourceManager resources)
     {
         if(!string.IsNullOrEmpty(ToolsTextCompId))
             _toolsTextComp = (TextComponent)Component.FindComponentById(ToolsTextCompId);
@@ -267,4 +310,5 @@ public class ToolbarComponent : UIComponent
             };
         }
     }
+    */
 }
