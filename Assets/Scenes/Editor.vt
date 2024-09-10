@@ -46,6 +46,7 @@ E#Scene
 -Scale:V(1,1)
 @TextComponent
 -ComponentId:S(Comp_7)
+-IsClickable:B(true)
 -NormalFontId:S(Asset_1)
 -HoverFontId:S(Asset_2)
 -ShaderId:S(Asset_3)
@@ -81,6 +82,7 @@ E#NewScene
 @RawButton
 -IsActive:B(true)
 -ComponentId:S(NewSceneRawBtn)
+-IsClickable:B(true)
 -Stretch:I(1)
 -Width:F(100)
 -Height:F(20)
@@ -112,6 +114,7 @@ E#LoadScene
 @RawButton
 -IsActive:B(true)
 -ComponentId:S(LoadSceneBtnComp)
+-IsClickable:B(true)
 -Stretch:I(1)
 -Width:F(100)
 -Height:F(20)
@@ -143,6 +146,7 @@ E#SaveScene
 @RawButton
 -IsActive:B(true)
 -ComponentId:S(SaveSceneBtnComp)
+-IsClickable:B(true)
 -Stretch:I(1)
 -Width:F(100)
 -Height:F(20)
@@ -176,6 +180,7 @@ E#Element
 -Scale:V(1,1)
 @TextComponent
 -ComponentId:S(ElementToggleText)
+-IsClickable:B(true)
 -NormalFontId:S(Asset_1)
 -HoverFontId:S(Asset_2)
 -ShaderId:S(Asset_3)
@@ -212,6 +217,7 @@ E#NewElementRawBtn
 @RawButton
 -IsActive:B(false)
 -ComponentId:S(NewElementBtn)
+-IsClickable:B(true)
 -Stretch:I(1)
 -Width:F(100)
 -Height:F(20)
@@ -244,6 +250,7 @@ E#Components
 -Rotation:F(0)
 -Scale:V(1,1)
 @TextComponent
+-IsClickable:B(true)
 -ComponentId:S(ComponentToggleTextComp)
 -NormalFontId:S(Asset_1)
 -HoverFontId:S(Asset_2)
@@ -280,6 +287,7 @@ E#NewComponent
 @RawButton
 -IsActive:B(false)
 -ComponentId:S(NewComponentBtnComp)
+-IsClickable:B(true)
 -Stretch:I(1)
 -Width:F(100)
 -Height:F(20)
@@ -311,6 +319,7 @@ E#AddComponent
 @RawButton
 -IsActive:B(false)
 -ComponentId:S(AddComponentBtnComp)
+-IsClickable:B(true)
 -Stretch:I(1)
 -Width:F(100)
 -Height:F(20)
@@ -344,6 +353,7 @@ E#Project
 -Scale:V(1,1)
 @TextComponent
 -ComponentId:S(ProjectToggleTextComp)
+-IsClickable:B(true)
 -NormalFontId:S(Asset_1)
 -HoverFontId:S(Asset_2)
 -ShaderId:S(Asset_3)
@@ -379,6 +389,7 @@ E#WindowSettings
 @RawButton
 -IsActive:B(false)
 -ComponentId:S(WindowSettingsBtnComp)
+-IsClickable:B(true)
 -Stretch:I(1)
 -Width:F(100)
 -Height:F(20)
@@ -410,6 +421,7 @@ E#Input
 @RawButton
 -IsActive:B(false)
 -ComponentId:S(InputBtnComp)
+-IsClickable:B(true)
 -Stretch:I(1)
 -Width:F(100)
 -Height:F(20)
@@ -442,6 +454,7 @@ E#Tools
 -Rotation:F(0)
 -Scale:V(1,1)
 @TextComponent
+-IsClickable:B(true)
 -ComponentId:S(ToolsToggleTextComp)
 -NormalFontId:S(Asset_1)
 -HoverFontId:S(Asset_2)
@@ -460,7 +473,7 @@ E#ToolsDropdown
 @MenuDropdown
 -ComponentId:S(ToolsDropdownComp)
 -IsActive:B(false)
--Width:F(35)
+-Width:F(50)
 -Height:F(300)
 -Anchor:I(8)
 -Origin:I(2)
@@ -468,35 +481,40 @@ E#ToolsDropdown
 @VerticalBox
 -ComponentId:S(ToolsDropdownVbox)
 -HorizontalAlignmentValue:I(2)
+@ToolsDropdownButtons
+-NewGameEditorWindowBtnId:S(NewGameEditorWindowBtnComp)
 
-E#AddWindow
+
+E#NewWindowGameEditorBtn
 -IsActive:B(false)
--ObjectId:S(AddWindowContainer)
+-ObjectId:S(NewWindowGameEditorBtn)
 -ElementParentId:S(ToolsDropdown)
 @TransformComponent
--ComponentId:S(AddWindowTransformComp)
+-ComponentId:S(NewGameEditorWindowTransformComp)
 @RawButton
 -IsActive:B(false)
--ComponentId:S(AddWindowBtnComp)
+-ComponentId:S(NewGameEditorWindowBtnComp)
+-IsClickable:B(true)
 -Stretch:I(1)
 -Width:F(100)
 -Height:F(20)
--DrawDebugRect:B(false)
 -Anchor:I(1)
+-ButtonTextCompId:S(NewWindowGameEditorText)
 
-E#AddWindowText
+E#NewWindowGameEditorText
 -IsActive:B(false)
--ObjectId:S(AddWindowText)
--ElementParentId:S(AddWindowContainer)
+-ObjectId:S(NewWindowGameEditor)
+-ElementParentId:S(NewWindowGameEditorBtn)
 @TransformComponent
--ComponentId:S(AddWindowTextTransform)
+-ComponentId:S(NewWindowGameEditorTransform)
 @TextComponent
--ComponentId:S(AddWindowTextComp)
+-ComponentId:S(NewWindowGameEditorText)
 -NormalFontId:S(Asset_1)
 -ShaderId:S(Asset_3)
--Text:S(Add Window)
+-Text:S(New Game Editor Window)
 -FontColor:C(36, 36, 36, 255)
 -Anchor:I(4)
 -Origin:I(4)
 -Offset:V(2, 0)
+
 
