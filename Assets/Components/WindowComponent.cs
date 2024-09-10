@@ -10,12 +10,21 @@ public class WindowComponent : UIComponent
     private Element? _headerTextElement;                              // Reference to the element for the text directly
     private TextComponent? _headerText;                                 // Reference to the text component directly
     private float _headerHeight = 30f;
-
-    public string _windowName = "";
-
-    public override void Constructor()
+    private string? _windowName;
+    public string WindowName
     {
-        base.Constructor();
+        get => _windowName;
+        set 
+        {
+            _windowName = value;
+            if(_headerText != null)
+                _headerText.Text = value;
+        }
+    }
+
+    public override void Constructor(ResourceManager resources)
+    {
+        base.Constructor(resources);
         CreateTextComponent();
     }
 
