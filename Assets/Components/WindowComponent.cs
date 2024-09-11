@@ -279,7 +279,7 @@ public class WindowComponent : UIComponent
 
         var font = SceneManager.GlobalResources.GetAssetById<FontAsset>("Asset_1");
         if(font.IsValid)
-            _headerText.NormalFont = font.LoadedFont;
+            _headerText.NormalFont = font;
 
         _headerTextElement.AddComponent(_headerText);
         _headerTextElement.SetParent(Owner);

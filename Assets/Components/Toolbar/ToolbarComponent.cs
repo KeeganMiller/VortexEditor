@@ -32,29 +32,17 @@ public class ToolbarComponent : UIComponent
         get => (int)_shadowDirection;
         set => _shadowDirection = (EShadowDirection)value;
     }
-
-    // == Option Components == //
-    private string? FileTextCompId { get; set; }
-    private string? FileDropdownId { get; set; }
-    private string? ElementTextCompId { get; set; }
-    private string? ElementDropdownId { get; set; }
-    private string? ComponentTextCompId { get; set; }
-    private string? ComponentDropdownId { get; set; }
-    private string? ProjectDropdownId { get; set; }
-    private string? ProjectTextCompId { get; set; }
-    private string? ToolsTextCompId { get; set; }
-    private string? ToolsDropdownId { get; set; }
     
-    private TextComponent? _fileTextComp;
-    private MenuDropdown? _fileDropdownComponent;
-    private TextComponent? _elementTextComp;
-    private MenuDropdown? _elementDropdownComponent;
-    private TextComponent? _componentTextComp;
-    private MenuDropdown? _componentDropdownComponent;
-    private TextComponent? _projectTextComp;
-    private MenuDropdown? _projectDropdownComponent;
-    private TextComponent? _toolsTextComp;
-    private MenuDropdown? _toolsDropdownComponent;
+    private TextComponent? _fileTextComp { get; set; }
+    private MenuDropdown? _fileDropdownComponent{ get; set; }
+    private TextComponent? _elementTextComp { get; set; }
+    private MenuDropdown? _elementDropdownComponent { get; set; }
+    private TextComponent? _componentTextComp { get; set; }
+    private MenuDropdown? _componentDropdownComponent { get; set; }
+    private TextComponent? _projectTextComp { get; set; }
+    private MenuDropdown? _projectDropdownComponent { get; set; }
+    private TextComponent? _toolsTextComp { get; set; }
+    private MenuDropdown? _toolsDropdownComponent { get; set; }
 
     private bool _isOverDropdwn = false;                            // Flag if the mouse is over the dropdown
 
@@ -69,6 +57,7 @@ public class ToolbarComponent : UIComponent
     public override void Constructor(ResourceManager resources)
     {
         base.Constructor(resources);
+        /*
         // Scene Dropdown
         SetupDropdown(FileTextCompId, FileDropdownId, out _fileTextComp, out _fileDropdownComponent, resources);
         if(_fileTextComp != null && _fileDropdownComponent != null)
@@ -93,7 +82,22 @@ public class ToolbarComponent : UIComponent
         SetupDropdown(ToolsTextCompId, ToolsDropdownId, out _toolsTextComp, out _toolsDropdownComponent, resources);
         if(_toolsTextComp != null && _toolsDropdownComponent != null)
             _toolsTextComp.OnClick += () => ToggleDropdown(_toolsDropdownComponent.IsActive ? null : _toolsDropdownComponent);
+        */
 
+        if(_fileTextComp != null && _fileDropdownComponent != null)
+            _fileTextComp.OnClick += () => ToggleDropdown(_fileDropdownComponent.IsActive ? null : _fileDropdownComponent);
+
+        if(_elementTextComp != null && _elementDropdownComponent != null)
+            _elementTextComp.OnClick += () => ToggleDropdown(_elementDropdownComponent.IsActive ? null : _elementDropdownComponent);
+
+        if(_componentTextComp != null && _componentDropdownComponent != null)
+            _componentTextComp.OnClick += () => ToggleDropdown(_componentDropdownComponent.IsActive ? null : _componentDropdownComponent);
+
+        if(_projectTextComp != null && _projectDropdownComponent != null)
+            _projectTextComp.OnClick += () => ToggleDropdown(_projectDropdownComponent.IsActive ? null : _projectDropdownComponent);
+
+        if(_toolsTextComp != null && _toolsDropdownComponent != null)
+            _toolsTextComp.OnClick += () => ToggleDropdown(_toolsDropdownComponent.IsActive ? null : _toolsDropdownComponent);
         
     }
 
@@ -116,6 +120,12 @@ public class ToolbarComponent : UIComponent
                 ToggleDropdown(null);
             }
         }
+
+        if(_elementTextComp != null)
+            Debug.Print("Element" + _elementTextComp.Owner.Transform.Position, EPrintMessageType.PRINT_Log);
+
+        if(_componentTextComp != null)
+            Debug.Print("Component" + _componentTextComp.Owner.Transform.Position, EPrintMessageType.PRINT_Log);
     }
 
     public override void Draw()

@@ -15,19 +15,19 @@ E#Toolbar
 -Width:F(300)
 -ToolbarColor:C(56, 56, 56, 255)
 -ShadowDirection:I(4)
--FileTextCompId:S(Comp_7)
--FileDropdownId:S(SceneDropdownComp)
--ElementTextCompId:S(ElementToggleText)
--ElementDropdownId:S(ElementDropdownMenu)
--ComponentTextCompId:S(ComponentToggleTextComp)
--ComponentDropdownId:S(ComponentsDropdownComp)
--ProjectTextCompId:S(ProjectToggleTextComp)
--ProjectDropdownId:S(ProjectDropdownComp)
--ToolsTextCompId:S(ToolsToggleTextComp)
--ToolsDropdownId:S(ToolsDropdownComp)
+-_fileTextComp_id:S(Comp_7)
+-_fileDropdownComponent_id:S(SceneDropdownComp)
+-_elementTextComp_id:S(ElementToggleText)
+-_elementDropdownComponent_id:S(ElementDropdownMenu)
+-_componentTextComp_id:S(ComponentToggleTextComp)
+-_componentDropdownComponent_id:S(ComponentsDropdownComp)
+-_projectTextComp_id:S(ProjectToggleTextComp)
+-_projectDropdownComponent_id:S(ProjectDropdownComp)
+-_toolsTextComp_id:S(ToolsToggleTextComp)
+-_toolsDropdownComponent_id:S(ToolsDropdownComp)
 @HorizontalBox
 -ComponentId:S(Comp_3)
--OwningUiCompId:S(Comp_2)
+-OwningUI_id:S(Comp_2)
 -HorizontalAlignmentValue:I(1)
 -VerticalAlignmentValue:I(2)
 -VerticalAlignmentOffset:F(-8)
@@ -38,7 +38,7 @@ E#Toolbar
 E#Scene
 -IsActive:B(true)
 -ObjectId:S(FileRawBtn_0)
--ElementParentId:S(fd_1)
+-Parent_id:S(fd_1)
 @TransformComponent
 -ComponentId:S(Comp_6)
 -Position:V(0,0)
@@ -47,9 +47,9 @@ E#Scene
 @TextComponent
 -ComponentId:S(Comp_7)
 -IsClickable:B(true)
--NormalFontId:S(Asset_1)
--HoverFontId:S(Asset_2)
--ShaderId:S(Asset_3)
+-NormalFont_id:S(Asset_1)
+-HoverFont_id:S(Asset_2)
+-_fontShader_id:S(Asset_3)
 -Text:S(Scene)
 -Anchor:I(1)
 -Origin:I(1)
@@ -58,7 +58,7 @@ E#Scene
 E#SceneDropdown
 -IsActive:B(false)
 -ObjectId:S(SceneDropdown)
--ElementParentId:S(FileRawBtn_0)
+-Parent_id:S(FileRawBtn_0)
 @TransformComponent
 -ComponentId:S(SceneDropdown)
 @MenuDropdown
@@ -76,7 +76,7 @@ E#SceneDropdown
 E#NewScene
 -IsActive:B(false)
 -ObjectId:S(NewSceneBtn)
--ElementParentId:S(SceneDropdown)
+-Parent_id:S(SceneDropdown)
 @TransformComponent
 -ComponentId:S(NewSceneBtnTransform)
 @RawButton
@@ -92,13 +92,13 @@ E#NewScene
 E#NewSceneBtnText
 -IsActive:B(false)
 -ObjectId:S(NewSceneBtnText)
--ElementParentId:S(NewSceneBtn)
+-Parent_id:S(NewSceneBtn)
 @TransformComponent
 -ComponentId:S(NewSceneBtnTextTransform)
 @TextComponent
 -ComponentId:S(NewSceneBtnTextComp)
--NormalFontId:S(Asset_1)
--ShaderId:S(Asset_3)
+-NormalFont_id:S(Asset_1)
+-_fontShader_id:S(Asset_3)
 -Text:S(New Scene)
 -FontColor:C(36, 36, 36, 255)
 -Anchor:I(4)
@@ -108,7 +108,7 @@ E#NewSceneBtnText
 E#LoadScene
 -IsActive:B(false)
 -ObjectId:S(LoadSceneBtn)
--ElementParentId:S(SceneDropdown)
+-Parent_id:S(SceneDropdown)
 @TransformComponent
 -ComponentId:S(LoadSceneBtnTransform)
 @RawButton
@@ -124,13 +124,13 @@ E#LoadScene
 E#LoadSceneBtnText
 -IsActive:B(false)
 -ObjectId:S(LoadSceneBtnText)
--ElementParentId:S(LoadSceneBtn)
+-Parent_id:S(LoadSceneBtn)
 @TransformComponent
 -ComponentId:S(LoadSceneBtnTextTransform)
 @TextComponent
 -ComponentId:S(LoadSceneTextComp)
--NormalFontId:S(Asset_1)
--ShaderId:S(Asset_3)
+-NormalFont_id:S(Asset_1)
+-_fontShader_id:S(Asset_3)
 -Text:S(Load Scene)
 -FontColor:C(36, 36, 36, 255)
 -Anchor:I(4)
@@ -140,7 +140,7 @@ E#LoadSceneBtnText
 E#SaveScene
 -IsActive:B(false)
 -ObjectId:S(SaveSceneBtn)
--ElementParentId:S(SceneDropdown)
+-Parent_id:S(SceneDropdown)
 @TransformComponent
 -ComponentId:S(SaveSceneBtnTransform)
 @RawButton
@@ -156,13 +156,13 @@ E#SaveScene
 E#SaveSceneBtnText
 -IsActive:B(false)
 -ObjectId:S(SaveSceneBtnText)
--ElementParentId:S(SaveSceneBtn)
+-Parent_id:S(SaveSceneBtn)
 @TransformComponent
 -ComponentId:S(SaveSceneBtnTextTransform)
 @TextComponent
 -ComponentId:S(SaveSceneTextComp)
--NormalFontId:S(Asset_1)
--ShaderId:S(Asset_3)
+-NormalFont_id:S(Asset_1)
+-_fontShader_id:S(Asset_3)
 -Text:S(Save Scene)
 -FontColor:C(36, 36, 36, 255)
 -Anchor:I(4)
@@ -172,7 +172,7 @@ E#SaveSceneBtnText
 E#Element
 -IsActive:B(true)
 -ObjectId:S(ElementToggle)
--ElementParentId:S(fd_1)
+-Parent_id:S(fd_1)
 @TransformComponent
 -ComponentId:S(ElementToggleTransform)
 -Position:V(0,0)
@@ -181,9 +181,9 @@ E#Element
 @TextComponent
 -ComponentId:S(ElementToggleText)
 -IsClickable:B(true)
--NormalFontId:S(Asset_1)
--HoverFontId:S(Asset_2)
--ShaderId:S(Asset_3)
+-NormalFont_id:S(Asset_1)
+-HoverFont_id:S(Asset_2)
+-_fontShader_id:S(Asset_3)
 -Text:S(Element)
 -Anchor:I(1)
 -Origin:I(1)
@@ -192,7 +192,7 @@ E#Element
 E#ElementDropdown
 -IsActive:B(false)
 -ObjectId:S(ElementDropdown)
--ElementParentId:S(ElementToggle)
+-Parent_id:S(ElementToggle)
 @TransformComponent
 -ComponentId:S(ElementToggleTransform)
 @MenuDropdown
@@ -211,7 +211,7 @@ E#ElementDropdown
 E#NewElementRawBtn
 -IsActive:B(false)
 -ObjectId:S(ElementDropdownRawBtn)
--ElementParentId:S(ElementDropdown)
+-Parent_id:S(ElementDropdown)
 @TransformComponent
 -ComponentId:S(NewElementRawBtnTransform)
 @RawButton
@@ -227,13 +227,13 @@ E#NewElementRawBtn
 E#NewElementText
 -IsActive:B(false)
 -ObjectId:S(NewElementText)
--ElementParentId:S(ElementDropdownRawBtn)
+-Parent_id:S(ElementDropdownRawBtn)
 @TransformComponent
 -ComponentId:S(NewElementTextTransform)
 @TextComponent
 -ComponentId:S(NewElementTextComp)
--NormalFontId:S(Asset_1)
--ShaderId:S(Asset_3)
+-NormalFont_id:S(Asset_1)
+-_fontShader_id:S(Asset_3)
 -Text:S(New Element)
 -FontColor:C(36, 36, 36, 255)
 -Anchor:I(4)
@@ -243,7 +243,7 @@ E#NewElementText
 E#Components
 -IsActive:B(true)
 -ObjectId:S(ComponentToggle)
--ElementParentId:S(fd_1)
+-Parent_id:S(fd_1)
 @TransformComponent
 -ComponentId:S(ComponentToggleTransform)
 -Position:V(0,0)
@@ -252,9 +252,9 @@ E#Components
 @TextComponent
 -IsClickable:B(true)
 -ComponentId:S(ComponentToggleTextComp)
--NormalFontId:S(Asset_1)
--HoverFontId:S(Asset_2)
--ShaderId:S(Asset_3)
+-NormalFont_id:S(Asset_1)
+-HoverFont_id:S(Asset_2)
+-_fontShader_id:S(Asset_3)
 -Text:S(Components)
 -Anchor:I(1)
 -Origin:I(1)
@@ -263,7 +263,7 @@ E#Components
 E#ComponentsDropdown
 -IsActive:B(false)
 -ObjectId:S(ComponentsDropdown)
--ElementParentId:S(ComponentToggle)
+-Parent_id:S(ComponentToggle)
 @TransformComponent
 -ComponentId:S(ComponentsToggleTransform)
 @MenuDropdown
@@ -281,7 +281,7 @@ E#ComponentsDropdown
 E#NewComponent
 -IsActive:B(false)
 -ObjectId:S(NewComponentContainer)
--ElementParentId:S(ComponentsDropdown)
+-Parent_id:S(ComponentsDropdown)
 @TransformComponent
 -ComponentId:S(NewComponentTransformComp)
 @RawButton
@@ -297,13 +297,13 @@ E#NewComponent
 E#NewComponentText
 -IsActive:B(false)
 -ObjectId:S(NewComponentText)
--ElementParentId:S(NewComponentContainer)
+-Parent_id:S(NewComponentContainer)
 @TransformComponent
 -ComponentId:S(NewComponentTextTransform)
 @TextComponent
 -ComponentId:S(NewComponentTextComp)
--NormalFontId:S(Asset_1)
--ShaderId:S(Asset_3)
+-NormalFont_id:S(Asset_1)
+-_fontShader_id:S(Asset_3)
 -Text:S(New Component)
 -FontColor:C(36, 36, 36, 255)
 -Anchor:I(4)
@@ -313,7 +313,7 @@ E#NewComponentText
 E#AddComponent
 -IsActive:B(false)
 -ObjectId:S(AddComponentContainer)
--ElementParentId:S(ComponentsDropdown)
+-Parent_id:S(ComponentsDropdown)
 @TransformComponent
 -ComponentId:S(AddComponentTransformComp)
 @RawButton
@@ -329,13 +329,13 @@ E#AddComponent
 E#AddComponentText
 -IsActive:B(false)
 -ObjectId:S(AddComponentText)
--ElementParentId:S(AddComponentContainer)
+-Parent_id:S(AddComponentContainer)
 @TransformComponent
 -ComponentId:S(AddComponentTextTransform)
 @TextComponent
 -ComponentId:S(AddComponentTextComp)
--NormalFontId:S(Asset_1)
--ShaderId:S(Asset_3)
+-NormalFont_id:S(Asset_1)
+-_fontShader_id:S(Asset_3)
 -Text:S(Add Component)
 -FontColor:C(36, 36, 36, 255)
 -Anchor:I(4)
@@ -345,7 +345,7 @@ E#AddComponentText
 E#Project
 -IsActive:B(true)
 -ObjectId:S(ProjectToggle)
--ElementParentId:S(fd_1)
+-Parent_id:S(fd_1)
 @TransformComponent
 -ComponentId:S(ProjectToggleTransform)
 -Position:V(0,0)
@@ -354,9 +354,9 @@ E#Project
 @TextComponent
 -ComponentId:S(ProjectToggleTextComp)
 -IsClickable:B(true)
--NormalFontId:S(Asset_1)
--HoverFontId:S(Asset_2)
--ShaderId:S(Asset_3)
+-NormalFont_id:S(Asset_1)
+-HoverFont_id:S(Asset_2)
+-_fontShader_id:S(Asset_3)
 -Text:S(Project)
 -Anchor:I(1)
 -Origin:I(1)
@@ -365,7 +365,7 @@ E#Project
 E#ProjectDropdown
 -IsActive:B(false)
 -ObjectId:S(ProjectDropdown)
--ElementParentId:S(ProjectToggle)
+-Parent_id:S(ProjectToggle)
 @TransformComponent
 -ComponentId:S(ProjectToggleTransform)
 @MenuDropdown
@@ -383,7 +383,7 @@ E#ProjectDropdown
 E#WindowSettings
 -IsActive:B(false)
 -ObjectId:S(WindowSettingsContainer)
--ElementParentId:S(ProjectDropdown)
+-Parent_id:S(ProjectDropdown)
 @TransformComponent
 -ComponentId:S(WindowSettingsTransformComp)
 @RawButton
@@ -399,13 +399,13 @@ E#WindowSettings
 E#WindowSettingsText
 -IsActive:B(false)
 -ObjectId:S(WindowSettingsText)
--ElementParentId:S(WindowSettingsContainer)
+-Parent_id:S(WindowSettingsContainer)
 @TransformComponent
 -ComponentId:S(WindowSettingsTextTransform)
 @TextComponent
 -ComponentId:S(WindowSettingsTextComp)
--NormalFontId:S(Asset_1)
--ShaderId:S(Asset_3)
+-NormalFont_id:S(Asset_1)
+-_fontShader_id:S(Asset_3)
 -Text:S(Window Settings))
 -FontColor:C(36, 36, 36, 255)
 -Anchor:I(4)
@@ -415,7 +415,7 @@ E#WindowSettingsText
 E#Input
 -IsActive:B(false)
 -ObjectId:S(InputContainer)
--ElementParentId:S(ProjectDropdown)
+-Parent_id:S(ProjectDropdown)
 @TransformComponent
 -ComponentId:S(InputTransformComp)
 @RawButton
@@ -431,13 +431,13 @@ E#Input
 E#InputText
 -IsActive:B(false)
 -ObjectId:S(InputText)
--ElementParentId:S(InputContainer)
+-Parent_id:S(InputContainer)
 @TransformComponent
 -ComponentId:S(InputTextTransform)
 @TextComponent
 -ComponentId:S(InputTextComp)
--NormalFontId:S(Asset_1)
--ShaderId:S(Asset_3)
+-NormalFont_id:S(Asset_1)
+-_fontShader_id:S(Asset_3)
 -Text:S(Input)
 -FontColor:C(36, 36, 36, 255)
 -Anchor:I(4)
@@ -447,7 +447,7 @@ E#InputText
 E#Tools
 -IsActive:B(true)
 -ObjectId:S(ToolsToggle)
--ElementParentId:S(fd_1)
+-Parent_id:S(fd_1)
 @TransformComponent
 -ComponentId:S(ToolsToggleTransform)
 -Position:V(0,0)
@@ -456,9 +456,9 @@ E#Tools
 @TextComponent
 -IsClickable:B(true)
 -ComponentId:S(ToolsToggleTextComp)
--NormalFontId:S(Asset_1)
--HoverFontId:S(Asset_2)
--ShaderId:S(Asset_3)
+-NormalFont_id:S(Asset_1)
+-HoverFont_id:S(Asset_2)
+-_fontShader_id:S(Asset_3)
 -Text:S(Tools)
 -Anchor:I(1)
 -Origin:I(1)
@@ -467,7 +467,7 @@ E#Tools
 E#ToolsDropdown
 -IsActive:B(false)
 -ObjectId:S(ToolsDropdown)
--ElementParentId:S(ToolsToggle)
+-Parent_id:S(ToolsToggle)
 @TransformComponent
 -ComponentId:S(ToolsToggleTransform)
 @MenuDropdown
@@ -482,15 +482,15 @@ E#ToolsDropdown
 -ComponentId:S(ToolsDropdownVbox)
 -HorizontalAlignmentValue:I(2)
 @ToolsDropdownButtons
--NewGameEditorWindowBtnId:S(NewGameEditorWindowBtnComp)
--NewAssetWindowId:S(NewWindowAssetBtn)
--NewInspectorWindowId:S(NewInspectorBtnComp)
+-_newGameEditorWindowBtn_id:S(NewGameEditorWindowBtnComp)
+-_newInspectorWindow_id:S(NewWindowAssetBtn)
+-_newAssetWindowBtn_id:S(NewInspectorBtnComp)
 
 
 E#NewWindowGameEditorBtn
 -IsActive:B(false)
 -ObjectId:S(NewWindowGameEditorBtn)
--ElementParentId:S(ToolsDropdown)
+-Parent_id:S(ToolsDropdown)
 @TransformComponent
 -ComponentId:S(NewGameEditorWindowTransformComp)
 @RawButton
@@ -501,18 +501,18 @@ E#NewWindowGameEditorBtn
 -Width:F(100)
 -Height:F(20)
 -Anchor:I(1)
--ButtonTextCompId:S(NewWindowGameEditorText)
+-_buttonTextComp_id:S(NewWindowGameEditorText)
 
 E#NewWindowGameEditorText
 -IsActive:B(false)
 -ObjectId:S(NewWindowGameEditor)
--ElementParentId:S(NewWindowGameEditorBtn)
+-Parent_id:S(NewWindowGameEditorBtn)
 @TransformComponent
 -ComponentId:S(NewWindowGameEditorTransform)
 @TextComponent
 -ComponentId:S(NewWindowGameEditorText)
--NormalFontId:S(Asset_1)
--ShaderId:S(Asset_3)
+-NormalFont_id:S(Asset_1)
+-_fontShader_id:S(Asset_3)
 -Text:S(New Game Editor Window)
 -FontColor:C(36, 36, 36, 255)
 -Anchor:I(4)
@@ -522,7 +522,7 @@ E#NewWindowGameEditorText
 E#NewWindowInspectorBtn
 -IsActive:B(false)
 -ObjectId:S(NewWindowInspectorBtn)
--ElementParentId:S(ToolsDropdown)
+-Parent_id:S(ToolsDropdown)
 @TransformComponent
 -ComponentId:S(NewInspectorTransform)
 @RawButton
@@ -533,18 +533,18 @@ E#NewWindowInspectorBtn
 -Width:F(100)
 -Height:F(20)
 -Anchor:I(1)
--ButtonTextCompId:S(NewWindowInspectorText)
+-_buttonTextComp_id:S(NewWindowInspectorText)
 
 E#NewWindowInspector
 -IsActive:B(false)
 -ObjectId:S(NewWindowInspector)
--ElementParentId:S(NewWindowInspectorBtn)
+-Parent_id:S(NewWindowInspectorBtn)
 @TransformComponent
 -ComponentId:S(NewWindowInspectorTransform)
 @TextComponent
 -ComponentId:S(NewWindowInspectorText)
--NormalFontId:S(Asset_1)
--ShaderId:S(Asset_3)
+-NormalFont_id:S(Asset_1)
+-_fontShader_id:S(Asset_3)
 -Text:S(New Inspector Window)
 -FontColor:C(36, 36, 36, 255)
 -Anchor:I(4)
@@ -554,7 +554,7 @@ E#NewWindowInspector
 E#NewWindowAsset
 -IsActive:B(false)
 -ObjectId:S(NewWindowAsset)
--ElementParentId:S(ToolsDropdown)
+-Parent_id:S(ToolsDropdown)
 @TransformComponent
 -ComponentId:S(NewWindowAssetTransform)
 @RawButton
@@ -565,18 +565,18 @@ E#NewWindowAsset
 -Width:F(100)
 -Height:F(20)
 -Anchor:I(1)
--ButtonTextCompId:S(NewWindowAssetText)
+-_buttonTextComp_id:S(NewWindowAssetText)
 
 E#NewWindowAssetText
 -IsActive:B(false)
 -ObjectId:S(NewWindowAssetTextComp)
--ElementParentId:S(NewWindowAsset)
+-Parent_id:S(NewWindowAsset)
 @TransformComponent
 -ComponentId:S(NewWindowAssetTextTransform)
 @TextComponent
 -ComponentId:S(NewWindowAssetText)
--NormalFontId:S(Asset_1)
--ShaderId:S(Asset_3)
+-NormalFont_id:S(Asset_1)
+-_fontShader_id:S(Asset_3)
 -Text:S(New Asset Window)
 -FontColor:C(36, 36, 36, 255)
 -Anchor:I(4)
@@ -586,7 +586,7 @@ E#NewWindowAssetText
 E#NewWindowScriptBtn
 -IsActive:B(false)
 -ObjectId:S(NewWindowScript)
--ElementParentId:S(ToolsDropdown)
+-Parent_id:S(ToolsDropdown)
 @TransformComponent
 -ComponentId:S(NewWindowScriptTransform)
 @RawButton
@@ -597,18 +597,18 @@ E#NewWindowScriptBtn
 -Width:F(100)
 -Height:F(20)
 -Anchor:I(1)
--ButtonTextCompId:S(NewWindowAssetText)
+-_buttonTextComp_id:S(NewWindowAssetText)
 
 E#NeWindowScriptText
 -IsActive:B(false)
 -ObjectId:S(NewWindowScriptText)
--ElementParentId:S(NewWindowScript)
+-Parent_id:S(NewWindowScript)
 @TransformComponent
 -ComponentId:S(NewWindowScriptBtnComp)
 @TextComponent
 -ComponentId:S(NewWindowScriptTextComp)
--NormalFontId:S(Asset_1)
--ShaderId:S(Asset_3)
+-NormalFont_id:S(Asset_1)
+-_fontShader_id:S(Asset_3)
 -Text:S(New Scripting Window)
 -FontColor:C(36, 36, 36, 255)
 -Anchor:I(4)
