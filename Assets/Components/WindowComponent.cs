@@ -31,6 +31,11 @@ public class WindowComponent : UIComponent
                 _headerText.Text = value;
         }
     }
+    // == Shadow Properties == //
+    private Vector2 _shadowLocation;
+    private float _shadowWidth;
+    private float _shadowHeight;
+    private float _shadowDistance = 5;
 
     // == Header Properties == //
     private Vector2 _headerPosition = Vector2.Zero;                     // Reference of where to draw the header
@@ -205,6 +210,20 @@ public class WindowComponent : UIComponent
                 Raylib.SetMouseCursor(MouseCursor.Default);
             }
         }
+        
+        UpdateShadowPositionAndSize();
+    }
+
+    private void UpdateShadowPositionAndSize()
+    {
+        _shadowLocation = new Vector2
+        {
+            X = Owner.Transform.Position.X - _shadowDistance,
+            Y = Owner.Transform.Position.Y - _shadowDistance
+        };
+
+        _shadowWidth = Width * Owner.Transform.Scale.X + (_shadowDistance * 5 / 2);
+        _shadowHeight = Height * Owner.Transform.Scale.Y + (_shadowDistance * 5 / 2);
     }
 
     /// <summary>
@@ -234,6 +253,7 @@ public class WindowComponent : UIComponent
 
         if(Width > 0 && Height > 0)
         {            
+            Raylib.DrawRectangleRec(new Rectangle(_shadowLocation, _shadowWidth * Owner.Transform.Scale.X, _shadowHeight * Owner.Transform.Scale.Y), new Color(30, 30, 30, 100));
             Raylib.DrawRectangleRec(new Rectangle(Owner.Transform.Position, Width * Owner.Transform.Scale.X, Height * Owner.Transform.Scale.Y), new Color(225, 225, 225, 255));
             Raylib.DrawRectangleRounded(new Rectangle(_headerPosition, Width * Owner.Transform.Scale.X, _headerHeight * Owner.Transform.Scale.Y), 0.3f, 0, new Color(56, 56, 56, 255));
             Raylib.DrawCircleGradient((int)_headerExitBtnPosition.X, (int)_headerExitBtnPosition.Y, _headerExitBtnRadius, new Color(163, 78, 78, 255), new Color(184, 44, 44, 255));
