@@ -8,6 +8,12 @@ namespace VortexEditor;
 
 public class WindowComponent : UIComponent
 {
+    // Min window sizing
+    private const float MIN_WNINDOW_WIDTH = 120f;
+    private const float MIN_WINDOW_HEIGHT = 120f;
+
+    private float _toolbarHeight;                           // Reference to the height of the bar
+
     private Element? _headerTextElement;                              // Reference to the element for the text directly
     private TextComponent? _headerText;                                 // Reference to the text component directly
     private float _headerHeight = 30f;                      // The header height
@@ -52,6 +58,10 @@ public class WindowComponent : UIComponent
     {
         base.Start();
         UpdateElementPositions();
+
+        var toolbarComp = Component.FindComponentOfType<ToolbarComponent>();
+        if(toolbarComp != null)
+            _toolbarHeight = toolbarComp.Height;
     }
 
     public override void Update(float dt)
@@ -132,8 +142,12 @@ public class WindowComponent : UIComponent
             } else 
             {
                 var setPos = Input.GetMousePosition(false) - _resizeMouseOffset;
-                Width += setPos.X;
-                Height += setPos.Y;
+                if(Width + setPos.X > MIN_WNINDOW_WIDTH && Width < Game.WindowSettings.WindowWidth)
+                    Width += setPos.X;
+
+                if(Height + setPos.Y > MIN_WINDOW_HEIGHT && Height < (Game.WindowSettings.WindowHeight - _toolbarHeight))
+                    Height += setPos.Y;
+                
                 _resizeMouseOffset = Input.GetMousePosition(false);
                 UpdateElementPositions();
             }
