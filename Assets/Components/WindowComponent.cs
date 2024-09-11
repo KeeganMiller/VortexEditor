@@ -190,8 +190,8 @@ public class WindowComponent : UIComponent
         if(position.X + Width > Game.WindowSettings.WindowWidth)
             position.X = Game.WindowSettings.WindowWidth - Width;
 
-        if(position.Y < _toolbarHeight + 3)
-            position.Y = _toolbarHeight + 3;
+        if(position.Y < _toolbarHeight + 8)
+            position.Y = _toolbarHeight + 8;
 
         if(position.Y + Height > Game.WindowSettings.WindowHeight)
             position.Y = Game.WindowSettings.WindowHeight - Height;     
