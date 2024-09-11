@@ -25,6 +25,7 @@ public class WindowComponent : UIComponent
 
     private Vector2 _headerPosition = Vector2.Zero;
     private Vector2 _headerExitBtnPosition;
+    private float _headerExitBtnRadius = 7f; 
     private Vector2 _headerMouseClickOffset = Vector2.Zero;
     private bool _isRepositioning = false;
 
@@ -48,11 +49,16 @@ public class WindowComponent : UIComponent
 
         if(Input.IsMouseButtonClicked(EMouseButton.MOUSE_Left))
         {
-            if(IsOverHeader())
+            if(IsOverHeader() && !IsMouseOverExit())
             {
                 _isRepositioning = true;
                 var mousePos = Input.GetMousePosition(false);
                 _headerMouseClickOffset = Owner.Transform.Position - mousePos;
+            }
+
+            if(IsMouseOverExit() && !_isRepositioning)
+            {
+                Owner.Destroy();
             }
         }
 
@@ -68,6 +74,8 @@ public class WindowComponent : UIComponent
                 SetHeaderElements();
             }
         }
+
+        
     }
 
     public override void Draw()
@@ -78,7 +86,7 @@ public class WindowComponent : UIComponent
         {            
             Raylib.DrawRectangleRec(new Rectangle(Owner.Transform.Position, Width * Owner.Transform.Scale.X, Height * Owner.Transform.Scale.Y), new Color(225, 225, 225, 255));
             Raylib.DrawRectangleRounded(new Rectangle(_headerPosition, Width * Owner.Transform.Scale.X, _headerHeight * Owner.Transform.Scale.Y), 0.3f, 0, new Color(56, 56, 56, 255));
-            Raylib.DrawCircleGradient((int)_headerExitBtnPosition.X, (int)_headerExitBtnPosition.Y, 10f, new Color(163, 78, 78, 255), new Color(184, 44, 44, 255));
+            Raylib.DrawCircleGradient((int)_headerExitBtnPosition.X, (int)_headerExitBtnPosition.Y, _headerExitBtnRadius, new Color(163, 78, 78, 255), new Color(184, 44, 44, 255));
         }
     }
 
@@ -118,6 +126,18 @@ public class WindowComponent : UIComponent
         _headerTextElement.AddComponent(_headerText);
         _headerTextElement.SetParent(Owner);
         
+    }
+
+    private bool IsMouseOverExit()
+    {
+        var mousePos = Input.GetMousePosition();
+        var halfRadius = _headerExitBtnRadius / 2;
+        var top = _headerExitBtnPosition.Y - halfRadius;
+        var bottom = (_headerExitBtnPosition.Y - halfRadius) + (2 * _headerExitBtnRadius);
+        var left = _headerExitBtnPosition.X - halfRadius;
+        var right = (_headerExitBtnPosition.X - halfRadius) + (2 * _headerExitBtnRadius);
+
+        return mousePos.X >= left && mousePos.X < right && mousePos.Y >= top && mousePos.Y < bottom;
     }
 
     private void SetHeaderElements()
