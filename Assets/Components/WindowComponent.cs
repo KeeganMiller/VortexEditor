@@ -65,16 +65,22 @@ public class WindowComponent : UIComponent
     public override void Start()
     {
         base.Start();
-        UpdateElementPositions();
+        UpdateElementPositions();               // Set the position of the elements to draw
 
+        // Get the toolbar height for future reference
         var toolbarComp = Component.FindComponentOfType<ToolbarComponent>();
         if(toolbarComp != null)
             _toolbarHeight = toolbarComp.Height;
     }
 
+    /// <summary>
+    /// Sets the zindex for this component and other related components
+    /// </summary>
+    /// <param name="index">Index to set to</param>
     public void SetZindex(int index)
     {
-        this.ZIndex = index;
+        this.ZIndex = index;                // Set the z index
+        // Update the zindex of the text
         if(_headerText != null)
             _headerText.ZIndex = index;
     }
@@ -183,6 +189,7 @@ public class WindowComponent : UIComponent
         }
 
         
+        // Check if we are over the resize and update the mouse cursor and the flag
         if(IsMouseOverResize())
         {
             if(!_isOverResize)
