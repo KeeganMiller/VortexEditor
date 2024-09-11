@@ -24,12 +24,22 @@ public class WindowComponent : UIComponent
         }
     }
 
+    // == Header Properties == //
     private Vector2 _headerPosition = Vector2.Zero;                     // Reference of where to draw the header
     private Vector2 _headerMouseClickOffset = Vector2.Zero;                     // Offset from where we clicked when repositioning
     private bool _isRepositioning = false;                          // If we are currently repositioning the window
+
+    // == Exit  Button Properties == //
     private Vector2 _headerExitBtnPosition;                             // Reference to the position of the exit btn
     private float _headerExitBtnRadius = 7f;                            // Reference to the radius of the exit btn                         
     private bool _isOverExit = false;                           // Flag if the mouse is over
+
+    // == Resize Properties == //
+    private Vector2 _dragElementPosition = Vector2.Zero;                    // Position of where to drag
+    private float _dragElementWidth = 10;                           // Allowed width
+    private float _dragElementHeight = 10;                          // Allowed height
+    private bool _isOverResize = false;                         // Flag if we are over the resize element
+    private bool _isResizing = false;                           // Flag if we are currently resizing
 
     public override void Constructor(ResourceManager resources)
     {
@@ -40,7 +50,7 @@ public class WindowComponent : UIComponent
     public override void Start()
     {
         base.Start();
-        SetHeaderElements();
+        UpdateElementPositions();
     }
 
     public override void Update(float dt)
@@ -68,6 +78,12 @@ public class WindowComponent : UIComponent
                 Raylib.SetMouseCursor(MouseCursor.Default);
                 Owner.Destroy();
             }
+
+            if(IsMouseOverResize() && !_isRepositioning)
+            {
+                // TODO: Begin resize
+            }
+
         } else              // No mouse click
         {
             // Check if the mouse is over the exit
@@ -101,12 +117,31 @@ public class WindowComponent : UIComponent
             {   
                 // We are still dragging so update the position of all the elements
                 Owner.Transform.Position = Input.GetMousePosition(false) + _headerMouseClickOffset;
-                SetHeaderElements();
+                UpdateElementPositions();
             }
         }
-
-
         
+        // Handle resize
+        if(_isResizing && !_isRepositioning)
+        {
+
+        }
+        
+        if(IsMouseOverResize())
+        {
+            if(!_isOverResize)
+            {
+                _isOverResize = true;
+                Raylib.SetMouseCursor(MouseCursor.ResizeNwse);
+            }
+        } else 
+        {
+            if(_isOverResize)
+            {
+                _isOverResize = false;
+                Raylib.SetMouseCursor(MouseCursor.Default);
+            }
+        }
         
     }
 
@@ -119,6 +154,7 @@ public class WindowComponent : UIComponent
             Raylib.DrawRectangleRec(new Rectangle(Owner.Transform.Position, Width * Owner.Transform.Scale.X, Height * Owner.Transform.Scale.Y), new Color(225, 225, 225, 255));
             Raylib.DrawRectangleRounded(new Rectangle(_headerPosition, Width * Owner.Transform.Scale.X, _headerHeight * Owner.Transform.Scale.Y), 0.3f, 0, new Color(56, 56, 56, 255));
             Raylib.DrawCircleGradient((int)_headerExitBtnPosition.X, (int)_headerExitBtnPosition.Y, _headerExitBtnRadius, new Color(163, 78, 78, 255), new Color(184, 44, 44, 255));
+            Raylib.DrawRectangleRec(new Rectangle(_dragElementPosition, _dragElementWidth, _dragElementHeight), Color.Blue);
         }
     }
 
@@ -184,11 +220,32 @@ public class WindowComponent : UIComponent
     }
 
     /// <summary>
+    /// Check if the mouse is over the resize
+    /// </summary>
+    /// <returns>If the mouse is over the resize</returns>
+    private bool IsMouseOverResize()
+    {
+        var mousePos = Input.GetMousePosition();
+        var top = _dragElementPosition.Y;
+        var bottom = _dragElementPosition.Y + _dragElementHeight;
+        var left = _dragElementPosition.X;
+        var right = _dragElementPosition.X + _dragElementWidth;
+
+        return mousePos.X >= left && mousePos.X < right && mousePos.Y >= top && mousePos.Y < bottom;
+    }
+
+    /// <summary>
     /// Update the size of the header and exit btn
     /// </summary>
-    private void SetHeaderElements()
+    private void UpdateElementPositions()
     {
         _headerPosition = new Vector2(Owner.Transform.Position.X, Owner.Transform.Position.Y - 8);
         _headerExitBtnPosition = new Vector2(OwnerTransform.Position.X + (Width - 25), Owner.Transform.Position.Y + 6);
+        _dragElementPosition = new Vector2
+        {
+            X = Owner.Transform.Position.X + (Width - _dragElementWidth),
+            Y = Owner.Transform.Position.Y + (Height - _dragElementHeight)
+        };
+
     }
 }
