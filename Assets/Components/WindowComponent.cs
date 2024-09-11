@@ -10,25 +10,26 @@ public class WindowComponent : UIComponent
 {
     private Element? _headerTextElement;                              // Reference to the element for the text directly
     private TextComponent? _headerText;                                 // Reference to the text component directly
-    private float _headerHeight = 30f;
-    private string? _windowName;
+    private float _headerHeight = 30f;                      // The header height
+    private string? _windowName;                        // The name of the window
     public string WindowName
     {
         get => _windowName;
         set 
         {
-            _windowName = value;
+            _windowName = value;                    // Set the name of the window
+            // Update the header text
             if(_headerText != null)
                 _headerText.Text = value;
         }
     }
 
-    private Vector2 _headerPosition = Vector2.Zero;
-    private Vector2 _headerExitBtnPosition;
-    private float _headerExitBtnRadius = 7f; 
-    private Vector2 _headerMouseClickOffset = Vector2.Zero;
-    private bool _isRepositioning = false;
-    private bool _isOverExit = false;
+    private Vector2 _headerPosition = Vector2.Zero;                     // Reference of where to draw the header
+    private Vector2 _headerMouseClickOffset = Vector2.Zero;                     // Offset from where we clicked when repositioning
+    private bool _isRepositioning = false;                          // If we are currently repositioning the window
+    private Vector2 _headerExitBtnPosition;                             // Reference to the position of the exit btn
+    private float _headerExitBtnRadius = 7f;                            // Reference to the radius of the exit btn                         
+    private bool _isOverExit = false;                           // Flag if the mouse is over
 
     public override void Constructor(ResourceManager resources)
     {
@@ -47,9 +48,11 @@ public class WindowComponent : UIComponent
         base.Update(dt);
         
 
-
+        // Check for mouse click
         if(Input.IsMouseButtonClicked(EMouseButton.MOUSE_Left))
         {
+            // Check if we are over the header and not over the exit btn
+            // If we are than flag the window as repositioning and update the offset
             if(IsOverHeader() && !IsMouseOverExit())
             {
                 _isRepositioning = true;
@@ -57,16 +60,20 @@ public class WindowComponent : UIComponent
                 _headerMouseClickOffset = Owner.Transform.Position - mousePos;
             }
 
+            // Check if we are over the exit and not currently repositioning
+            // Reset the mouse cursor and destroy this window
             if(IsMouseOverExit() && !_isRepositioning)
             {
                 _isOverExit = false;
                 Raylib.SetMouseCursor(MouseCursor.Default);
                 Owner.Destroy();
             }
-        } else 
+        } else              // No mouse click
         {
+            // Check if the mouse is over the exit
             if(IsMouseOverExit())
             {
+                // If we haven't flagged that we are over the exit flag it and update the cursor
                 if(!_isOverExit)
                 {
                     _isOverExit = true;
@@ -74,6 +81,7 @@ public class WindowComponent : UIComponent
                 }
             } else 
             {
+                // If we aren't over the exit then update the flag and updaate the cursor
                 if(_isOverExit)
                 {
                     _isOverExit = false;
@@ -82,14 +90,16 @@ public class WindowComponent : UIComponent
             }
         } 
 
+        // Check if we are currently repositioning window
         if(_isRepositioning)
         {
+            // Check if the mouse has been released
             if(Input.IsMouseButtonReleased(EMouseButton.MOUSE_Left))
             {
-                Debug.Print("Hello, World", EPrintMessageType.PRINT_Log);
-                _isRepositioning = false;
+                _isRepositioning = false;                   // Stop repositioning
             } else 
             {   
+                // We are still dragging so update the position of all the elements
                 Owner.Transform.Position = Input.GetMousePosition(false) + _headerMouseClickOffset;
                 SetHeaderElements();
             }
@@ -112,6 +122,10 @@ public class WindowComponent : UIComponent
         }
     }
 
+    /// <summary>
+    /// Checks if the mouse is over the header
+    /// </summary>
+    /// <returns>If the mouse is over the header</returns>
     private bool IsOverHeader()
     {
         var mousePos = Input.GetMousePosition(false);
@@ -123,6 +137,9 @@ public class WindowComponent : UIComponent
         return mousePos.X > left && mousePos.X < right && mousePos.Y > top && mousePos.Y < bottom;
     }
 
+    /// <summary>
+    /// Creates the window title
+    /// </summary>
     private void CreateTextComponent()
     {
         _headerTextElement = new Element("HeaderTextElement");
@@ -150,6 +167,10 @@ public class WindowComponent : UIComponent
         
     }
 
+    /// <summary>
+    /// Check if the mouse is over the exit btn
+    /// </summary>
+    /// <returns></returns>
     private bool IsMouseOverExit()
     {
         var mousePos = Input.GetMousePosition();
@@ -162,6 +183,9 @@ public class WindowComponent : UIComponent
         return mousePos.X >= left && mousePos.X < right && mousePos.Y >= top && mousePos.Y < bottom;
     }
 
+    /// <summary>
+    /// Update the size of the header and exit btn
+    /// </summary>
     private void SetHeaderElements()
     {
         _headerPosition = new Vector2(Owner.Transform.Position.X, Owner.Transform.Position.Y - 8);
