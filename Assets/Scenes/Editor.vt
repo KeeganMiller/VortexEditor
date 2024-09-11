@@ -28,8 +28,8 @@ E#Toolbar
 @HorizontalBox
 -ComponentId:S(Comp_3)
 -OwningUI_id:S(Comp_2)
--HorizontalAlignmentValue:I(1)
--VerticalAlignmentValue:I(2)
+-HorizontalAlignment:I(1)
+-VerticalAlignment:I(2)
 -VerticalAlignmentOffset:F(-8)
 -PaddingLeft:F(20)
 -UseChildrenWidth:B(true)
@@ -54,6 +54,7 @@ E#Scene
 -Anchor:I(1)
 -Origin:I(1)
 -FontColor:C(255, 255, 255, 255)
+-DrawDebugRect:B(true)
 
 E#SceneDropdown
 -IsActive:B(false)
@@ -71,7 +72,7 @@ E#SceneDropdown
 -Offset:V(-15, 0)
 @VerticalBox
 -ComponentId:S(SceneDropdownVBox)
--HorizontalAlignmentValue:I(2)
+-HorizontalAlignment:I(2)
 
 E#NewScene
 -IsActive:B(false)
@@ -188,6 +189,7 @@ E#Element
 -Anchor:I(1)
 -Origin:I(1)
 -FontColor:C(255, 255, 255, 255)
+-DrawDebugRect:B(true)
 
 E#ElementDropdown
 -IsActive:B(false)
@@ -205,7 +207,7 @@ E#ElementDropdown
 -Offset:V(-15, 0)
 @VerticalBox
 -ComponentId:S(ElementDropdownVbox)
--HorizontalAlignmentValue:I(2)
+-HorizontalAlignment:I(2)
 
 
 E#NewElementRawBtn
@@ -276,7 +278,7 @@ E#ComponentsDropdown
 -Offset:V(-15, 0)
 @VerticalBox
 -ComponentId:S(ComponentDropdownVbox)
--HorizontalAlignmentValue:I(2)
+-HorizontalAlignment:I(2)
 
 E#NewComponent
 -IsActive:B(false)
@@ -378,7 +380,7 @@ E#ProjectDropdown
 -Offset:V(-15, 0)
 @VerticalBox
 -ComponentId:S(ComponentDropdownVbox)
--HorizontalAlignmentValue:I(2)
+-HorizontalAlignment:I(2)
 
 E#WindowSettings
 -IsActive:B(false)
@@ -480,7 +482,7 @@ E#ToolsDropdown
 -Offset:V(-15, 0)
 @VerticalBox
 -ComponentId:S(ToolsDropdownVbox)
--HorizontalAlignmentValue:I(2)
+-HorizontalAlignment:I(2)
 @ToolsDropdownButtons
 -_newGameEditorWindowBtn_id:S(NewGameEditorWindowBtnComp)
 -_newInspectorWindow_id:S(NewWindowAssetBtn)
