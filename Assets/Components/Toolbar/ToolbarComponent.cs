@@ -121,11 +121,6 @@ public class ToolbarComponent : UIComponent
             }
         }
 
-        if(_elementTextComp != null)
-            Debug.Print("Element" + _elementTextComp.Owner.Transform.Position, EPrintMessageType.PRINT_Log);
-
-        if(_componentTextComp != null)
-            Debug.Print("Component" + _componentTextComp.Owner.Transform.Position, EPrintMessageType.PRINT_Log);
     }
 
     public override void Draw()
