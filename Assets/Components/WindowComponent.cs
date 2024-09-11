@@ -12,6 +12,8 @@ public class WindowComponent : UIComponent
     private const float MIN_WNINDOW_WIDTH = 120f;
     private const float MIN_WINDOW_HEIGHT = 120f;
 
+    private Editor _editorRef;                          // Reference to the editor scene
+
     private float _toolbarHeight;                           // Reference to the height of the bar
 
     private Element? _headerTextElement;                              // Reference to the element for the text directly
@@ -62,6 +64,19 @@ public class WindowComponent : UIComponent
         var toolbarComp = Component.FindComponentOfType<ToolbarComponent>();
         if(toolbarComp != null)
             _toolbarHeight = toolbarComp.Height;
+
+        _editorRef = SceneManager.GetScene<Editor>();
+        if(_editorRef == null)
+            Debug.Print("WindowComponent::Start -> Failed to get the editor scene", EPrintMessageType.PRINT_Warning);
+        else
+            _editorRef.AddWindow(this);
+    }
+
+    public void SetZindex(int index)
+    {
+        this.ZIndex = index;
+        if(_headerText != null)
+            _headerText.ZIndex = index;
     }
 
     public override void Update(float dt)
@@ -72,6 +87,10 @@ public class WindowComponent : UIComponent
         // Check for mouse click
         if(Input.IsMouseButtonClicked(EMouseButton.MOUSE_Left))
         {
+            if(IsMouseOver && _editorRef != null)
+                _editorRef.BringWindowForward(this);
+
+
             // Check if we are over the header and not over the exit btn
             // If we are than flag the window as repositioning and update the offset
             if(IsOverHeader() && !IsMouseOverExit())
@@ -87,6 +106,9 @@ public class WindowComponent : UIComponent
             {
                 _isOverExit = false;
                 Raylib.SetMouseCursor(MouseCursor.Default);
+                if(_editorRef != null)
+                    _editorRef.RemoveWindow(this);
+
                 Owner.Destroy();
             }
 
