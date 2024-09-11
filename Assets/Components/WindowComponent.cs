@@ -28,6 +28,7 @@ public class WindowComponent : UIComponent
     private float _headerExitBtnRadius = 7f; 
     private Vector2 _headerMouseClickOffset = Vector2.Zero;
     private bool _isRepositioning = false;
+    private bool _isOverExit = false;
 
     public override void Constructor(ResourceManager resources)
     {
@@ -58,9 +59,28 @@ public class WindowComponent : UIComponent
 
             if(IsMouseOverExit() && !_isRepositioning)
             {
+                _isOverExit = false;
+                Raylib.SetMouseCursor(MouseCursor.Default);
                 Owner.Destroy();
             }
-        }
+        } else 
+        {
+            if(IsMouseOverExit())
+            {
+                if(!_isOverExit)
+                {
+                    _isOverExit = true;
+                    Raylib.SetMouseCursor(MouseCursor.PointingHand);
+                }
+            } else 
+            {
+                if(_isOverExit)
+                {
+                    _isOverExit = false;
+                    Raylib.SetMouseCursor(MouseCursor.Default);
+                }
+            }
+        } 
 
         if(_isRepositioning)
         {
@@ -75,6 +95,8 @@ public class WindowComponent : UIComponent
             }
         }
 
+
+        
         
     }
 
