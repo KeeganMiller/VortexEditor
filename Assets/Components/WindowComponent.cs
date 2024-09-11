@@ -40,6 +40,7 @@ public class WindowComponent : UIComponent
     private float _dragElementHeight = 10;                          // Allowed height
     private bool _isOverResize = false;                         // Flag if we are over the resize element
     private bool _isResizing = false;                           // Flag if we are currently resizing
+    private Vector2 _resizeMouseOffset = Vector2.Zero;                      // Where we started when draging
 
     public override void Constructor(ResourceManager resources)
     {
@@ -81,7 +82,8 @@ public class WindowComponent : UIComponent
 
             if(IsMouseOverResize() && !_isRepositioning)
             {
-                // TODO: Begin resize
+                _isResizing = true;
+                _resizeMouseOffset = Input.GetMousePosition(false);
             }
 
         } else              // No mouse click
@@ -123,9 +125,21 @@ public class WindowComponent : UIComponent
         
         // Handle resize
         if(_isResizing && !_isRepositioning)
-        {
-
+        {   
+            if(Input.IsMouseButtonReleased(EMouseButton.MOUSE_Left))
+            {
+                _isResizing = false;
+            } else 
+            {
+                var setPos = Input.GetMousePosition(false) - _resizeMouseOffset;
+                Width += setPos.X;
+                Height += setPos.Y;
+                _resizeMouseOffset = Input.GetMousePosition(false);
+                UpdateElementPositions();
+            }
+            
         }
+
         
         if(IsMouseOverResize())
         {
@@ -209,7 +223,7 @@ public class WindowComponent : UIComponent
     /// <returns></returns>
     private bool IsMouseOverExit()
     {
-        var mousePos = Input.GetMousePosition();
+        var mousePos = Input.GetMousePosition(false);
         var halfRadius = _headerExitBtnRadius / 2;
         var top = _headerExitBtnPosition.Y - halfRadius;
         var bottom = (_headerExitBtnPosition.Y - halfRadius) + (2 * _headerExitBtnRadius);
@@ -225,7 +239,7 @@ public class WindowComponent : UIComponent
     /// <returns>If the mouse is over the resize</returns>
     private bool IsMouseOverResize()
     {
-        var mousePos = Input.GetMousePosition();
+        var mousePos = Input.GetMousePosition(false);
         var top = _dragElementPosition.Y;
         var bottom = _dragElementPosition.Y + _dragElementHeight;
         var left = _dragElementPosition.X;
