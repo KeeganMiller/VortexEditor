@@ -11,22 +11,33 @@ public class ToolsDropdownButtons : UIComponent
     private RawButton? _newGameEditorWindowBtn;
     private string NewGameEditorWindowBtnId { get; set; } = "";
 
+    private RawButton? _newInspectorWindow;
+    private string NewInspectorWindowId { get; set; } = "";
+
+    private RawButton? _newAssetWindowBtn;
+    private string NewAssetWindowId { get; set; }
+
+
     public override void Constructor(ResourceManager resources)
     {
         base.Constructor(resources);
-        CreateNewGameEditorWindowBtn(resources);
+        CreateWindow(resources, NewGameEditorWindowBtnId, out _newGameEditorWindowBtn, "Scene Editor");
+        CreateWindow(resources, NewInspectorWindowId, out _newInspectorWindow, "Inspector", 200, 400);
+        CreateWindow(resources, NewAssetWindowId, out _newAssetWindowBtn, "Assets");
     }
 
-    private void CreateNewGameEditorWindowBtn(ResourceManager resources)
+    private void CreateWindow(ResourceManager resources, string btnId, out RawButton btn, string windowTitle, int width = 300, int height = 300)
     {
-        if(!string.IsNullOrEmpty(NewGameEditorWindowBtnId))
-            _newGameEditorWindowBtn = resources.GetComponentById<RawButton>(NewGameEditorWindowBtnId);
+        RawButton createdBtn = null;
 
-        if(_newGameEditorWindowBtn != null)
+        if(!string.IsNullOrEmpty(btnId))
+            createdBtn = resources.GetComponentById<RawButton>(btnId);
+
+        if(createdBtn != null)
         {
-            _newGameEditorWindowBtn.OnClick = () => 
+            createdBtn.OnClick = () => 
             {
-                var window = new Element("NewGameEditorWindow");                    // Create th element
+                var window = new Element(windowTitle);                    // Create th element
                 Owner.Owner.AddElement(window);
                 // Create the transform
                 var trans = new TransformComponent
@@ -40,13 +51,15 @@ public class ToolsDropdownButtons : UIComponent
                 var windowComp = new WindowComponent()
                 {
                     ComponentId = Guid.NewGuid().ToString(),
-                    WindowName = "Game Editor",
-                    Width = 500,
-                    Height = 500
+                    WindowName = windowTitle,
+                    Width = width,
+                    Height = height
                 };
                 window.AddComponent(windowComp);                // Add the window component
                 
             };
         }
+
+        btn = createdBtn;
     }
 }

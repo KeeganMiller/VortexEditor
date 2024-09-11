@@ -483,6 +483,8 @@ E#ToolsDropdown
 -HorizontalAlignmentValue:I(2)
 @ToolsDropdownButtons
 -NewGameEditorWindowBtnId:S(NewGameEditorWindowBtnComp)
+-NewAssetWindowId:S(NewWindowAssetBtn)
+-NewInspectorWindowId:S(NewInspectorBtnComp)
 
 
 E#NewWindowGameEditorBtn
@@ -517,4 +519,66 @@ E#NewWindowGameEditorText
 -Origin:I(4)
 -Offset:V(2, 0)
 
+E#NewWindowInspectorBtn
+-IsActive:B(false)
+-ObjectId:S(NewWindowInspectorBtn)
+-ElementParentId:S(ToolsDropdown)
+@TransformComponent
+-ComponentId:S(NewInspectorTransform)
+@RawButton
+-IsActive:B(false)
+-ComponentId:S(NewInspectorBtnComp)
+-IsClickable:B(true)
+-Stretch:I(1)
+-Width:F(100)
+-Height:F(20)
+-Anchor:I(1)
+-ButtonTextCompId:S(NewWindowInspectorText)
 
+E#NewWindowInspector
+-IsActive:B(false)
+-ObjectId:S(NewWindowInspector)
+-ElementParentId:S(NewWindowInspectorBtn)
+@TransformComponent
+-ComponentId:S(NewWindowInspectorTransform)
+@TextComponent
+-ComponentId:S(NewWindowInspectorText)
+-NormalFontId:S(Asset_1)
+-ShaderId:S(Asset_3)
+-Text:S(New Inspector Window)
+-FontColor:C(36, 36, 36, 255)
+-Anchor:I(4)
+-Origin:I(4)
+-Offset:V(2, 0)
+
+E#NewWindowAsset
+-IsActive:B(false)
+-ObjectId:S(NewWindowAsset)
+-ElementParentId:S(ToolsDropdown)
+@TransformComponent
+-ComponentId:S(NewWindowAssetTransform)
+@RawButton
+-IsActive:B(false)
+-ComponentId:S(NewWindowAssetBtn)
+-IsClickable:B(true)
+-Stretch:I(1)
+-Width:F(100)
+-Height:F(20)
+-Anchor:I(1)
+-ButtonTextCompId:S(NewWindowAssetText)
+
+E#NewWindowAssetText
+-IsActive:B(false)
+-ObjectId:S(NewWindowAssetTextComp)
+-ElementParentId:S(NewWindowAsset)
+@TransformComponent
+-ComponentId:S(NewWindowAssetTextTransform)
+@TextComponent
+-ComponentId:S(NewWindowAssetText)
+-NormalFontId:S(Asset_1)
+-ShaderId:S(Asset_3)
+-Text:S(New Asset Window)
+-FontColor:C(36, 36, 36, 255)
+-Anchor:I(4)
+-Origin:I(4)
+-Offset:V(2, 0)
