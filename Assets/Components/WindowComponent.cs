@@ -128,7 +128,7 @@ public class WindowComponent : UIComponent
             } else 
             {   
                 // We are still dragging so update the position of all the elements
-                Owner.Transform.Position = Input.GetMousePosition(false) + _headerMouseClickOffset;
+                Owner.Transform.Position = ClampPosition(Input.GetMousePosition(false) + _headerMouseClickOffset);
                 UpdateElementPositions();
             }
         }
@@ -176,7 +176,27 @@ public class WindowComponent : UIComponent
                 Raylib.SetMouseCursor(MouseCursor.Default);
             }
         }
-        
+    }
+
+    /// <summary>
+    /// Keeps the window within the bounds
+    /// </summary>
+    /// <returns>Position within bounds</returns>
+    private Vector2 ClampPosition(Vector2 position)
+    {
+        if(position.X < 0)
+            position.X = 0;
+
+        if(position.X + Width > Game.WindowSettings.WindowWidth)
+            position.X = Game.WindowSettings.WindowWidth - Width;
+
+        if(position.Y < _toolbarHeight + 3)
+            position.Y = _toolbarHeight + 3;
+
+        if(position.Y + Height > Game.WindowSettings.WindowHeight)
+            position.Y = Game.WindowSettings.WindowHeight - Height;     
+
+        return position;       
     }
 
     public override void Draw()
