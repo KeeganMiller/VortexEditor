@@ -17,6 +17,9 @@ public class ToolsDropdownButtons : UIComponent
     private RawButton? _newAssetWindowBtn;
     private string NewAssetWindowId { get; set; }
 
+    private RawButton? _newScriptWindowBtn;
+    private string NewScriptingWindowBtnId { get; set; }
+
 
     public override void Constructor(ResourceManager resources)
     {
@@ -24,6 +27,7 @@ public class ToolsDropdownButtons : UIComponent
         CreateWindow(resources, NewGameEditorWindowBtnId, out _newGameEditorWindowBtn, "Scene Editor");
         CreateWindow(resources, NewInspectorWindowId, out _newInspectorWindow, "Inspector", 200, 400);
         CreateWindow(resources, NewAssetWindowId, out _newAssetWindowBtn, "Assets");
+        CreateWindow(resources, NewScriptingWindowBtnId, out _newScriptWindowBtn, "Script");
     }
 
     private void CreateWindow(ResourceManager resources, string btnId, out RawButton btn, string windowTitle, int width = 300, int height = 300)

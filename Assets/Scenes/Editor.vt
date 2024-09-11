@@ -582,3 +582,35 @@ E#NewWindowAssetText
 -Anchor:I(4)
 -Origin:I(4)
 -Offset:V(2, 0)
+
+E#NewWindowScriptBtn
+-IsActive:B(false)
+-ObjectId:S(NewWindowScript)
+-ElementParentId:S(ToolsDropdown)
+@TransformComponent
+-ComponentId:S(NewWindowScriptTransform)
+@RawButton
+-IsActive:B(false)
+-ComponentId:S(NewWindowScriptBtnComp)
+-IsClickable:B(true)
+-Stretch:I(1)
+-Width:F(100)
+-Height:F(20)
+-Anchor:I(1)
+-ButtonTextCompId:S(NewWindowAssetText)
+
+E#NeWindowScriptText
+-IsActive:B(false)
+-ObjectId:S(NewWindowScriptText)
+-ElementParentId:S(NewWindowScript)
+@TransformComponent
+-ComponentId:S(NewWindowScriptBtnComp)
+@TextComponent
+-ComponentId:S(NewWindowScriptTextComp)
+-NormalFontId:S(Asset_1)
+-ShaderId:S(Asset_3)
+-Text:S(New Scripting Window)
+-FontColor:C(36, 36, 36, 255)
+-Anchor:I(4)
+-Origin:I(4)
+-Offset:V(2, 0)
