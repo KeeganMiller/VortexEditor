@@ -142,10 +142,16 @@ public class WindowComponent : UIComponent
             } else 
             {
                 var setPos = Input.GetMousePosition(false) - _resizeMouseOffset;
-                if(Width + setPos.X > MIN_WNINDOW_WIDTH && Width < (Game.WindowSettings.WindowWidth - 10))
+                var windowBounds = new Vector2
+                {
+                    X = Game.WindowSettings.WindowWidth - Owner.Transform.Position.X - 10,
+                    Y = Game.WindowSettings.WindowHeight - Owner.Transform.Position.Y - 10
+                };
+
+                if(Width + setPos.X > MIN_WNINDOW_WIDTH && Width < windowBounds.X)
                     Width += setPos.X;
 
-                if(Height + setPos.Y > MIN_WINDOW_HEIGHT && Height < (Game.WindowSettings.WindowHeight - _toolbarHeight) - 10)
+                if(Height + setPos.Y > MIN_WINDOW_HEIGHT && Height < windowBounds.Y)
                     Height += setPos.Y;
                 
                 _resizeMouseOffset = Input.GetMousePosition(false);
