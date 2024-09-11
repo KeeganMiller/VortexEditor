@@ -54,6 +54,12 @@ public class WindowComponent : UIComponent
     {
         base.Constructor(resources);
         CreateTextComponent();
+
+        _editorRef = SceneManager.GetScene<Editor>();
+        if(_editorRef == null)
+            Debug.Print("WindowComponent::Start -> Failed to get the editor scene", EPrintMessageType.PRINT_Warning);
+        else
+            _editorRef.AddWindow(this);
     }
 
     public override void Start()
@@ -64,12 +70,6 @@ public class WindowComponent : UIComponent
         var toolbarComp = Component.FindComponentOfType<ToolbarComponent>();
         if(toolbarComp != null)
             _toolbarHeight = toolbarComp.Height;
-
-        _editorRef = SceneManager.GetScene<Editor>();
-        if(_editorRef == null)
-            Debug.Print("WindowComponent::Start -> Failed to get the editor scene", EPrintMessageType.PRINT_Warning);
-        else
-            _editorRef.AddWindow(this);
     }
 
     public void SetZindex(int index)
