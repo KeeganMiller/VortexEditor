@@ -55,6 +55,7 @@ E#Scene
 -Origin:I(1)
 -FontColor:C(255, 255, 255, 255)
 -DrawDebugRect:B(true)
+-UseScaleForMouseDetection:B(false)
 
 E#SceneDropdown
 -IsActive:B(false)
@@ -73,6 +74,7 @@ E#SceneDropdown
 @VerticalBox
 -ComponentId:S(SceneDropdownVBox)
 -HorizontalAlignment:I(2)
+-UseChildrenHeight:B(true)
 
 E#NewScene
 -IsActive:B(false)
@@ -190,6 +192,7 @@ E#Element
 -Origin:I(1)
 -FontColor:C(255, 255, 255, 255)
 -DrawDebugRect:B(true)
+-UseScaleForMouseDetection:B(false)
 
 E#ElementDropdown
 -IsActive:B(false)
@@ -208,6 +211,7 @@ E#ElementDropdown
 @VerticalBox
 -ComponentId:S(ElementDropdownVbox)
 -HorizontalAlignment:I(2)
+-UseChildrenHeight:B(true)
 
 
 E#NewElementRawBtn
@@ -262,6 +266,7 @@ E#Components
 -Origin:I(1)
 -FontColor:C(255, 255, 255, 255)
 -DrawDebugRect:B(true)
+-UseScaleForMouseDetection:B(false)
 
 E#ComponentsDropdown
 -IsActive:B(false)
@@ -280,6 +285,7 @@ E#ComponentsDropdown
 @VerticalBox
 -ComponentId:S(ComponentDropdownVbox)
 -HorizontalAlignment:I(2)
+-UseChildrenHeight:B(true)
 
 E#NewComponent
 -IsActive:B(false)
@@ -364,6 +370,7 @@ E#Project
 -Anchor:I(1)
 -Origin:I(1)
 -FontColor:C(255, 255, 255, 255)
+-UseScaleForMouseDetection:B(false)
 
 E#ProjectDropdown
 -IsActive:B(false)
@@ -382,6 +389,7 @@ E#ProjectDropdown
 @VerticalBox
 -ComponentId:S(ComponentDropdownVbox)
 -HorizontalAlignment:I(2)
+-UseChildrenHeight:B(true)
 
 E#WindowSettings
 -IsActive:B(false)
@@ -430,6 +438,7 @@ E#Input
 -Height:F(20)
 -DrawDebugRect:B(false)
 -Anchor:I(1)
+-UseScaleForMouseDetection:B(false)
 
 E#InputText
 -IsActive:B(false)
@@ -466,6 +475,7 @@ E#Tools
 -Anchor:I(1)
 -Origin:I(1)
 -FontColor:C(255, 255, 255, 255)
+-UseScaleForMouseDetection:B(false)
 
 E#ToolsDropdown
 -IsActive:B(false)
@@ -484,6 +494,8 @@ E#ToolsDropdown
 @VerticalBox
 -ComponentId:S(ToolsDropdownVbox)
 -HorizontalAlignment:I(2)
+-UseChildrenHeight:B(true)
+-DrawDebugRect:B(true)
 @ToolsDropdownButtons
 -_newGameEditorWindowBtn_id:S(NewGameEditorWindowBtnComp)
 -_newInspectorWindow_id:S(NewWindowAssetBtn)
