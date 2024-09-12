@@ -629,3 +629,47 @@ E#NeWindowScriptText
 -Anchor:I(4)
 -Origin:I(4)
 -Offset:V(2, 0)
+
+E#PanelManager:
+-IsActive:B(true)
+-ObjectId:(PanelManager)
+@TransformComponent
+-ComponentId:S(PanelManagerTransform)
+@PanelManager
+-ComponentId:S(PanelManagerComponent)
+-PanelLeft_id:S(LeftPanelComponent)
+-PanelRight_id:S(RightPanelComponent)
+-PanelBottom_id:S(BottomPanelComponent)
+
+E#BottomPanel
+-IsActive:B(true)
+-ObjectId:S(BottomPanel)
+@TransformComponent
+-ComponentId:S(BottomPanelTransform)
+@PanelComponent
+-ComponentId:S(BottomPanelComponent)
+-_panelLocation:I(4)
+-_panelManager_id:S(PanelManagerComponent)
+-_panelColor:C(219, 219, 219, 225)
+
+E#LeftPanel
+-IsActive:B(true)
+-ObjectId:S(LeftPanel)
+@TransformComponent
+-ComponentId:S(LeftPanelTransform)
+@PanelComponent
+-ComponentId:S(LeftPanelComponent)
+-_panelLocation:I(1)
+-_panelManager_id:S(PanelManagerComponent)
+-_panelColor:C(130, 130, 130, 255)
+
+E#RightPanel
+-IsActive:B(true)
+-ObjectId:S(RightPanel)
+@TransformComponent
+-ComponentId:S(RightPanelTransform)
+@PanelComponent
+-ComponentId:S(RightPanelComponent)
+-_panelLocation:I(2)
+-_panelManager_id:S(PanelManagerComponent)
+-_panelColor:C(65, 65, 65, 255)
