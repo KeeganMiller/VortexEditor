@@ -43,6 +43,17 @@ public class PanelTabComponent : UIComponent
         }
     }
 
+    private bool _isSelected { get; set; } = false;                       // If this panel tab is currently selected
+    public bool IsSelected
+    {
+        get => _isSelected;
+        set 
+        {
+            _isSelected = value;
+            _activeColor = _isSelected ? _tabHoverColor : _tabNormalColor;
+        }
+    }
+
     public override void Constructor(ResourceManager resourceManager)
     {
         base.Constructor(resourceManager);
@@ -51,8 +62,24 @@ public class PanelTabComponent : UIComponent
         if(_tabContainer != null)
             _tabContainer.Tabs.Add(this);
         
-        OnMouseEnter += () => _activeColor = _tabHoverColor;
-        OnMouseExit += () => _activeColor = _tabNormalColor;
+        OnMouseEnter += () =>
+        {
+            if(!_isSelected)
+                _activeColor = _tabHoverColor;
+        };
+
+        OnMouseExit += () => 
+        {
+            if(!_isSelected)
+                _activeColor = _tabNormalColor;
+        };
+
+        IsClickable = true;
+        OnClick += () => 
+        {
+            if(_tabContainer != null && _panelReference != null)
+                _tabContainer.SetSelectedTab(this, _panelReference.PanelLocation);
+        };
 
         Disable += () => _textComp.Owner.IsActive = false;
         Enable += () => _textComp.Owner.IsActive = true;
@@ -64,6 +91,9 @@ public class PanelTabComponent : UIComponent
         _textComp.Text = _tabName;
         _activeColor = _tabNormalColor;
         UpdateRect();
+
+        if(_isSelected && _tabContainer != null && _panelReference != null)
+            _tabContainer.SetSelectedTab(this, _panelReference.PanelLocation);
     }
 
     public override void Update(float dt)

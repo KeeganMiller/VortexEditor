@@ -12,6 +12,12 @@ public class PanelTabContainer : UIComponent
     private Color _headerColor { get; set; }
     private Color _borderColor { get; set; }
 
+    // == Selected Panel Tabs == //
+    private PanelTabComponent? _selectedLeftPanelTab;
+    private PanelTabComponent? _selectedRightPanelTab;
+    private PanelTabComponent? _selectedTopPanelTab;
+    private PanelTabComponent? _selectedBottomPanelTab;
+
     public override void Constructor(ResourceManager resourceManager)
     {
         base.Constructor(resourceManager);
@@ -71,6 +77,61 @@ public class PanelTabContainer : UIComponent
             var borderStartPos = new Vector2(Owner.Transform.Position.X, Owner.Transform.Position.Y + Height);
             var borderEndPos = new Vector2(Owner.Transform.Position.X + Width, Owner.Transform.Position.Y + _owningPanel.Width);
             Raylib.DrawLineEx(borderStartPos, borderEndPos, 1, _borderColor);
+        }
+    }
+
+    public void SetSelectedTab(PanelTabComponent tab, EPanelLocation location)
+    {
+        switch(location)
+        {
+            case EPanelLocation.PANEL_Left:
+                if(_selectedLeftPanelTab != null)
+                    _selectedLeftPanelTab.IsSelected = false;
+
+                _selectedLeftPanelTab = tab;
+                if(_selectedLeftPanelTab != null)
+                    _selectedLeftPanelTab.IsSelected = true;
+                break;
+            case EPanelLocation.PANEL_Right:
+                if(_selectedRightPanelTab != null)
+                    _selectedRightPanelTab.IsSelected = false;
+                
+                _selectedRightPanelTab = tab;
+                if(_selectedRightPanelTab != null)
+                    _selectedRightPanelTab.IsSelected = true;
+                break;
+            case EPanelLocation.PANEL_Up:
+                if(_selectedTopPanelTab != null)
+                    _selectedTopPanelTab.IsSelected = false;
+
+                _selectedTopPanelTab = tab;
+                if(_selectedTopPanelTab != null)
+                    _selectedTopPanelTab.IsSelected = true;
+                break;
+            case EPanelLocation.PANEL_Down:
+                if(_selectedBottomPanelTab != null)
+                    _selectedBottomPanelTab.IsSelected = false;
+
+                _selectedBottomPanelTab = tab;
+                if(_selectedBottomPanelTab != null)
+                    _selectedBottomPanelTab.IsSelected = true;
+                break;
+            default:
+                Debug.Print("PanelTabContainer::SetSelectedTab -> Failed to set panel location, argument out of bounds", EPrintMessageType.PRINT_Warning);
+                break;
+
+        }
+        if(location == EPanelLocation.PANEL_Left)
+        {
+        } else if(location == EPanelLocation.PANEL_Right)
+        {
+            
+        } else if(location == EPanelLocation.PANEL_Up)
+        {
+            
+        } else if(location == EPanelLocation.PANEL_Down)
+        {
+            
         }
     }
 }

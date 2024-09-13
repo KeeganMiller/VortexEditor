@@ -5,6 +5,7 @@ namespace VortexEditor;
 
 public class PanelManager : Component
 {
+    // == Panel References == //
     public List<PanelComponent> FloatingPanels = new List<PanelComponent>();
     public PanelComponent? PanelLeft { get; set; }
     public PanelComponent? PanelBottom { get; set; }

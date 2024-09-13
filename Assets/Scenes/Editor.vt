@@ -649,7 +649,7 @@ E#BottomPanel
 -ComponentId:S(BottomPanelTransform)
 @PanelComponent
 -ComponentId:S(BottomPanelComponent)
--_panelLocation:I(4)
+-PanelLocation:I(4)
 -_panelManager_id:S(PanelManagerComponent)
 -_panelColor:C(42, 42, 42, 255)
 -_borderColor:C(20, 20, 20, 255)
@@ -663,7 +663,7 @@ E#LeftPanel
 -ComponentId:S(LeftPanelTransform)
 @PanelComponent
 -ComponentId:S(LeftPanelComponent)
--_panelLocation:I(1)
+-PanelLocation:I(1)
 -_panelManager_id:S(PanelManagerComponent)
 -_panelColor:C(42, 42, 42, 255)
 -_borderColor:C(20, 20, 20, 255)
@@ -696,7 +696,7 @@ E#InspectorPanelTab
 @TransformComponent
 -ComponentId:S(InspectorPanelTanTrans)
 @PanelTabComponent
--_tabNormalColor:C(40, 40, 40, 255)
+-_tabNormalColor:C(61, 61, 61, 255)
 -_tabHoverColor:C(50, 50, 50, 255)
 -TabName:S(Inspector)
 -_tabContainer_id:S(LeftPanelTabsContainerComp)
@@ -705,6 +705,7 @@ E#InspectorPanelTab
 -Width:F(100)
 -Anchor:I(1)
 -Origin:I(1)
+-IsSelected:B(true)
 
 E#SceneTree
 -IsActive:B(true)
@@ -714,7 +715,7 @@ E#SceneTree
 @TransformComponent
 -ComponentId:S(SceneTreeTransform)
 @PanelTabComponent
--_tabNormalColor:C(40, 40, 40, 255)
+-_tabNormalColor:C(61, 61, 61, 255)
 -_tabHoverColor:C(50, 50, 50, 255)
 -TabName:S(Scene Tree)
 -_tabContainer_id:S(LeftPanelTabsContainerComp)
@@ -733,7 +734,7 @@ E#RightPanel
 -ComponentId:S(RightPanelTransform)
 @PanelComponent
 -ComponentId:S(RightPanelComponent)
--_panelLocation:I(2)
+-PanelLocation:I(2)
 -_panelManager_id:S(PanelManagerComponent)
 -_panelColor:C(42, 42, 42, 255)
 -_borderColor:C(20, 20, 20, 255)

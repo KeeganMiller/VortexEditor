@@ -25,7 +25,7 @@ public class PanelComponent : UIComponent
     
     
 
-    private EPanelLocation _panelLocation { get; set; } = EPanelLocation.PANEL_Left;
+    public EPanelLocation PanelLocation { get; private set; } = EPanelLocation.PANEL_Left;
     private Color _panelColor { get; set; } = Color.Black;
     private PanelManager? _panelManager { get; set; }                     // Reference to the panel manager
     private PanelTabContainer _panelContainer { get; set; }
@@ -82,7 +82,7 @@ public class PanelComponent : UIComponent
         
 
         // Update the panel location with the offset
-        switch(_panelLocation)
+        switch(PanelLocation)
         {
             case EPanelLocation.PANEL_Left:
                 SetOriginAndAnchor(EOriginLocation.ORIGIN_TopLeft, EAnchorLocation.ANCHOR_TopLeft);
@@ -112,7 +112,7 @@ public class PanelComponent : UIComponent
         if(_panelManager == null)
             return;
 
-        switch(_panelLocation)
+        switch(PanelLocation)
         {
             case EPanelLocation.PANEL_Down:
                 Width = Game.WindowSettings.WindowWidth;
@@ -168,7 +168,7 @@ public class PanelComponent : UIComponent
             if(!_isMouseOverEdge)
             {
                 _isMouseOverEdge = true;
-                switch(_panelLocation)
+                switch(PanelLocation)
                 {
                     case EPanelLocation.PANEL_Left:
                     case EPanelLocation.PANEL_Right:
@@ -204,7 +204,7 @@ public class PanelComponent : UIComponent
 
         // Switch checks if the movement is within the min/max sizes
         // and updates the size of the panel
-        switch(_panelLocation)
+        switch(PanelLocation)
         {
             case EPanelLocation.PANEL_Left:
                 if(IsWithinBounds(nextStep))
@@ -256,7 +256,7 @@ public class PanelComponent : UIComponent
         if(_panelManager == null)
             return false;
         
-        switch(_panelLocation)
+        switch(PanelLocation)
         {   
             case EPanelLocation.PANEL_Left:
                 if(Width + nextStep.X <= MAX_PANEL_WIDTH && nextStep.X > 0)
@@ -297,7 +297,7 @@ public class PanelComponent : UIComponent
         float right = 0;
         float top = 0;
         float bottom = 0;
-        switch(_panelLocation)
+        switch(PanelLocation)
         {
             case EPanelLocation.PANEL_Left:
                 left = Owner.Transform.Position.X + Width - _resizeTollerence;
@@ -349,7 +349,7 @@ public class PanelComponent : UIComponent
         if(_panelManager == null)
             return;
 
-        switch(_panelLocation)
+        switch(PanelLocation)
         {
             case EPanelLocation.PANEL_Left:
                 _borderStartPosition = new Vector2(Owner.Transform.Position.X + Width, Owner.Transform.Position.Y);
