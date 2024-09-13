@@ -655,6 +655,43 @@ E#BottomPanel
 -_borderColor:C(20, 20, 20, 255)
 -_borderThickness:F(2.0)
 
+E#BottomPanelTabsContainer
+-IsActive:B(true)
+-ObjectId:S(BottomPanelTabsContainer)
+-ZIndex:I(10)
+-Parent_id:S(BottomPanel)
+@TransformComponent
+-ComponentId:S(BottomPanelTransformComp)
+@PanelTabContainer
+-ComponentId:S(BottomPanelTabsContainerComp)
+-_headerColor:C(61, 61, 61, 255)
+-_borderColor:C(92, 92, 92, 255)
+@HorizontalBox
+-OwningUI_id:S(BottomPanelTabsContainerComp)
+-PaddingLeft:F(4)
+-PaddingTop:F(4)
+-Anchor:I(1)
+-Origin:I(1)
+
+E#AssetPanelTab
+-IsActive:B(true)
+-ObjectId:S(AssetPanelTab)
+-ZIndex:I(199)
+-Parent_id:S(BottomPanelTabsContainer)
+@TransformComponent
+-ComponentId:S(AssetPanelTanTrans)
+@PanelTabComponent
+-_tabNormalColor:C(61, 61, 61, 255)
+-_tabHoverColor:C(50, 50, 50, 255)
+-TabName:S(Assets)
+-_tabContainer_id:S(BottomPanelTabsContainerComp)
+-_panelReference_id:S(BottomPanelComponent)
+-Height:F(20)
+-Width:F(100)
+-Anchor:I(1)
+-Origin:I(1)
+-IsSelected:B(true)
+
 E#LeftPanel
 -IsActive:B(true)
 -ObjectId:S(LeftPanel)
@@ -707,24 +744,6 @@ E#InspectorPanelTab
 -Origin:I(1)
 -IsSelected:B(true)
 
-E#SceneTree
--IsActive:B(true)
--ObjectId:S(SceneTreeTab)
--ZIndex:I(199)
--Parent_id:S(LeftPanelTabsContainer)
-@TransformComponent
--ComponentId:S(SceneTreeTransform)
-@PanelTabComponent
--_tabNormalColor:C(61, 61, 61, 255)
--_tabHoverColor:C(50, 50, 50, 255)
--TabName:S(Scene Tree)
--_tabContainer_id:S(LeftPanelTabsContainerComp)
--_panelReference_id:S(LeftPanelComponent)
--Height:F(20)
--Width:F(100)
--Anchor:I(1)
--Origin:I(1)
-
 
 E#RightPanel
 -IsActive:B(true)
@@ -739,3 +758,41 @@ E#RightPanel
 -_panelColor:C(42, 42, 42, 255)
 -_borderColor:C(20, 20, 20, 255)
 -_borderThickness:F(2.0)
+
+E#RightPanelTabsContainer
+-IsActive:B(true)
+-ObjectId:S(RightPanelTabsContainer)
+-ZIndex:I(10)
+-Parent_id:S(RightPanel)
+@TransformComponent
+-ComponentId:S(RightPanelContTransform)
+@PanelTabContainer
+-ComponentId:S(RightPanelTabsContainerComp)
+-_headerColor:C(61, 61, 61, 255)
+-_borderColor:C(92, 92, 92, 255)
+@HorizontalBox
+-OwningUI_id:S(RightPanelTabsContainerComp)
+-VerticalAlignment:I(1)
+-VerticalAlignmentOffset:F(-27)
+-PaddingLeft:F(4)
+-Anchor:I(1)
+-Origin:I(1)
+
+E#SceneTree
+-IsActive:B(true)
+-ObjectId:S(SceneTreeTab)
+-ZIndex:I(199)
+-Parent_id:S(RightPanelTabsContainer)
+@TransformComponent
+-ComponentId:S(SceneTreeTransform)
+@PanelTabComponent
+-_tabNormalColor:C(61, 61, 61, 255)
+-_tabHoverColor:C(50, 50, 50, 255)
+-TabName:S(Scene Tree)
+-_tabContainer_id:S(RightPanelTabsContainerComp)
+-_panelReference_id:S(RightPanelComponent)
+-Height:F(20)
+-Width:F(100)
+-Anchor:I(1)
+-Origin:I(1)
+-IsSelected:B(true)
