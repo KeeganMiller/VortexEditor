@@ -17,7 +17,7 @@ public enum EPanelLocation
 
 public class PanelComponent : UIComponent
 {
-
+    // == Panel Size Bounds == //
     public const float MIN_PANEL_WIDTH = 50;
     public const float MAX_PANEL_WIDTH = 600;
     public const float MIN_PANEL_HEIGHT = 50;
@@ -39,9 +39,12 @@ public class PanelComponent : UIComponent
 
     public override void Constructor(ResourceManager resourceManager)
     {
+        // Indicator if we don't have reference to the panel manager
         if(_panelManager == null)
             Debug.Print("PanelComponent::Constructor -> Reference to the panel manager not set", EPrintMessageType.PRINT_Warning);
 
+        // Get reference to the tool bar component to get the height of the tool bar
+        // Also indicate if we can't get reference to the tool bar
         var toolbar = resourceManager.GetComponent<ToolbarComponent>();
         if(toolbar != null)
         {
@@ -57,12 +60,14 @@ public class PanelComponent : UIComponent
         base.Start();
         SetDefaultSize();
 
+        // Set the offset to the height of the tool bar
         Offset = new Vector2
         {
             X = 0,
             Y = _toolbarHeight
         };
 
+        // Update the panel location with the offset
         switch(_panelLocation)
         {
             case EPanelLocation.PANEL_Left:
@@ -84,6 +89,9 @@ public class PanelComponent : UIComponent
         }
     }
 
+    /// <summary>
+    /// Sets the default size of the panel based on the location of the panel
+    /// </summary>
     private void SetDefaultSize()
     {
         if(_panelManager == null)
@@ -111,10 +119,12 @@ public class PanelComponent : UIComponent
     public override void Update(float dt)
     {
         base.Update(dt);
-        HandleMouseCursor();
+        HandleMouseCursor();                        
+        
         
         if(IsMouseOver && IsMouseOverEdge())
         {
+            // If the mouse is over the panel the edge, once clicked begin resize
             if(Input.IsMouseButtonClicked(EMouseButton.MOUSE_Left))
             {
                 _isResizing = true;
@@ -122,15 +132,20 @@ public class PanelComponent : UIComponent
             }
         }
 
+        // If we are resizing and the mouse button is released stop the resize
         if(_isResizing && Input.IsMouseButtonReleased(EMouseButton.MOUSE_Left))
         {
             _isResizing = false;
         }
 
+        // Handle resizing
         if(_isResizing)
             ResizePanel();
     }
 
+    /// <summary>
+    /// Changes the cursor if the mouse is over the edge or not
+    /// </summary>
     private void HandleMouseCursor()
     {
         if(IsMouseOver && IsMouseOverEdge())
@@ -164,10 +179,16 @@ public class PanelComponent : UIComponent
         }
     }
 
+    /// <summary>
+    /// Handles resizing the panel in editor
+    /// </summary>
     private void ResizePanel()
     {
+        // Direction and length to move the panel
         var nextStep = Input.GetMousePosition(false) - _lastResizeMousePos;
 
+        // Switch checks if the movement is within the min/max sizes
+        // and updates the size of the panel
         switch(_panelLocation)
         {
             case EPanelLocation.PANEL_Left:
@@ -204,10 +225,15 @@ public class PanelComponent : UIComponent
                 break;
         }
 
-        _lastResizeMousePos = Input.GetMousePosition(false);
-        SetOriginAndAnchor(Origin, Anchor);
+        _lastResizeMousePos = Input.GetMousePosition(false);                    // Set the last mouse pos
+        SetOriginAndAnchor(Origin, Anchor);                 // Update origin and anchor
     }
 
+    /// <summary>
+    /// Checks if the next resize size is within the min/max requirements
+    /// </summary>
+    /// <param name="nextStep">Direction/Length we are moving in</param>
+    /// <returns>If within the sizes</returns>
     private bool IsWithinBounds(Vector2 nextStep)
     {
         if(_panelManager == null)
@@ -244,6 +270,10 @@ public class PanelComponent : UIComponent
         return false;
     }
 
+    /// <summary>
+    /// Detects if the mouse is over the edge of the panel
+    /// </summary>
+    /// <returns>Mouse over the edge</returns>
     private bool IsMouseOverEdge()
     {
         float left = 0;
