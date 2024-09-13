@@ -37,6 +37,10 @@ public class PanelComponent : UIComponent
     private bool _isResizing = false;
     private Vector2 _lastResizeMousePos;
 
+    // == Border Properties == //
+    private Vector2 _borderStartPos = Vector2.Zero;
+    private Vector2 _borderEndPos = Vector2.Zero;
+
     public override void Constructor(ResourceManager resourceManager)
     {
         // Indicator if we don't have reference to the panel manager
@@ -320,7 +324,45 @@ public class PanelComponent : UIComponent
     public override void Draw()
     {
         base.Draw();
-        Raylib.DrawRectangleLinesEx(new Rectangle(Owner.Transform.Position, Width * Owner.Transform.Scale.X, Height * Owner.Transform.Scale.Y), 1, Color.White);
         Raylib.DrawRectangleRec(new Rectangle(Owner.Transform.Position, Width * Owner.Transform.Scale.X, Height * Owner.Transform.Scale.Y), _panelColor);
+    }
+
+    private void UpdateBorderPosition()
+    {
+        switch(_panelLocation)
+        {
+            case EPanelLocation.PANEL_Left:
+                _borderStartPos = new Vector2(Owner.Transform.Position.X + Width, Owner.Transform.Position.Y);
+                _borderEndPos = new Vector2(Owner.Transform.Position.X + Width, Owner.Transform.Position.Y + Height);
+                break;
+            case EPanelLocation.PANEL_Right:
+                _borderStartPos = Owner.Transform.Position;
+                _borderEndPos = new Vector2(Owner.Transform.Position.X, Owner.Transform.Position.Y + Height);
+                break;
+            case EPanelLocation.PANEL_Down:
+                _borderStartPos = new Vector2
+                {
+                    X = Owner.Transform.Position.X + _panelManager.PanelLeft.Width,
+                    Y = Owner.Transform.Position.Y
+                };
+                _borderEndPos = new Vector2
+                {
+                    X = Owner.Transform.Position.X - _panelManager.PanelRight.Width,
+                    Y = Owner.Transform.Position.Y
+                };
+                break;
+            case EPanelLocation.PANEL_Up:
+                _borderStartPos = new Vector2
+                {
+                    X = Owner.Transform.Position.X + _panelManager.PanelLeft.Width,
+                    Y = Owner.Transform.Position.Y + Height
+                };
+                _borderEndPos = new Vector2
+                {
+                    X = Owner.Transform.Position.X + _panelManager.PanelRight.Width,
+                    Y = Owner.Transform.Position.Y + Height
+                };
+                break;
+        }
     }
 }
