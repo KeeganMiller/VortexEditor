@@ -28,6 +28,7 @@ public class PanelComponent : UIComponent
     private EPanelLocation _panelLocation { get; set; } = EPanelLocation.PANEL_Left;
     private Color _panelColor { get; set; } = Color.Black;
     private PanelManager? _panelManager { get; set; }                     // Reference to the panel manager
+    private PanelTabContainer _panelContainer { get; set; }
     
     private float _toolbarHeight;
 
@@ -38,8 +39,10 @@ public class PanelComponent : UIComponent
     private Vector2 _lastResizeMousePos;
 
     // == Border Properties == //
-    private Vector2 _borderStartPos = Vector2.Zero;
-    private Vector2 _borderEndPos = Vector2.Zero;
+    private Vector2 _borderStartPosition = Vector2.Zero;
+    private Vector2 _borderEndPosition = Vector2.Zero;
+    private Color _borderColor { get; set; } = Color.White;
+    private float _borderThickness { get; set; } = 1;
 
     public override void Constructor(ResourceManager resourceManager)
     {
@@ -57,6 +60,12 @@ public class PanelComponent : UIComponent
         {
             Debug.Print("PanelComponent::Constructor -> Failed to get reference to the toolbar", EPrintMessageType.PRINT_Warning);
         }
+
+        // Get reference to the panel container if it's not assigned
+        if(_panelContainer == null)
+            _panelContainer = Owner.GetComponentInChild<PanelTabContainer>();
+        if(_panelContainer == null)
+            Debug.Print("PanelComponent::Constructor -> Failed to get reference to the panel container", EPrintMessageType.PRINT_Warning);
     }
 
     public override void Start()
@@ -70,6 +79,7 @@ public class PanelComponent : UIComponent
             X = 0,
             Y = _toolbarHeight
         };
+        
 
         // Update the panel location with the offset
         switch(_panelLocation)
@@ -91,6 +101,7 @@ public class PanelComponent : UIComponent
                 }
                 break;
         }
+        UpdateBorderPosition();
     }
 
     /// <summary>
@@ -231,6 +242,8 @@ public class PanelComponent : UIComponent
 
         _lastResizeMousePos = Input.GetMousePosition(false);                    // Set the last mouse pos
         SetOriginAndAnchor(Origin, Anchor);                 // Update origin and anchor
+        if(_panelManager != null)
+            _panelManager.UpdateBorders();
     }
 
     /// <summary>
@@ -325,44 +338,36 @@ public class PanelComponent : UIComponent
     {
         base.Draw();
         Raylib.DrawRectangleRec(new Rectangle(Owner.Transform.Position, Width * Owner.Transform.Scale.X, Height * Owner.Transform.Scale.Y), _panelColor);
+        Raylib.DrawLineEx(_borderStartPosition, _borderEndPosition, _borderThickness, _borderColor);
     }
 
-    private void UpdateBorderPosition()
+    /// <summary>
+    /// Determines where the border should display
+    /// </summary>
+    public void UpdateBorderPosition()
     {
+        if(_panelManager == null)
+            return;
+
         switch(_panelLocation)
         {
             case EPanelLocation.PANEL_Left:
-                _borderStartPos = new Vector2(Owner.Transform.Position.X + Width, Owner.Transform.Position.Y);
-                _borderEndPos = new Vector2(Owner.Transform.Position.X + Width, Owner.Transform.Position.Y + Height);
+                _borderStartPosition = new Vector2(Owner.Transform.Position.X + Width, Owner.Transform.Position.Y);
+                _borderEndPosition = new Vector2(Owner.Transform.Position.X + Width, Owner.Transform.Position.Y + Height);
                 break;
             case EPanelLocation.PANEL_Right:
-                _borderStartPos = Owner.Transform.Position;
-                _borderEndPos = new Vector2(Owner.Transform.Position.X, Owner.Transform.Position.Y + Height);
+                _borderStartPosition = new Vector2(Owner.Transform.Position.X, Owner.Transform.Position.Y);
+                _borderEndPosition = new Vector2(Owner.Transform.Position.X, Owner.Transform.Position.Y + Height);
                 break;
             case EPanelLocation.PANEL_Down:
-                _borderStartPos = new Vector2
-                {
-                    X = Owner.Transform.Position.X + _panelManager.PanelLeft.Width,
-                    Y = Owner.Transform.Position.Y
-                };
-                _borderEndPos = new Vector2
-                {
-                    X = Owner.Transform.Position.X - _panelManager.PanelRight.Width,
-                    Y = Owner.Transform.Position.Y
-                };
+                _borderStartPosition = Owner.Transform.Position;
+                _borderEndPosition = new Vector2(Owner.Transform.Position.X + Width, Owner.Transform.Position.Y);
                 break;
             case EPanelLocation.PANEL_Up:
-                _borderStartPos = new Vector2
-                {
-                    X = Owner.Transform.Position.X + _panelManager.PanelLeft.Width,
-                    Y = Owner.Transform.Position.Y + Height
-                };
-                _borderEndPos = new Vector2
-                {
-                    X = Owner.Transform.Position.X + _panelManager.PanelRight.Width,
-                    Y = Owner.Transform.Position.Y + Height
-                };
+                _borderStartPosition = new Vector2(Owner.Transform.Position.X, Owner.Transform.Position.Y + Height);
+                _borderEndPosition = new Vector2(Owner.Transform.Position.X + Width, Owner.Transform.Position.Y + Height);
                 break;
+            
         }
     }
 }

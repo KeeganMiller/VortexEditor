@@ -651,7 +651,9 @@ E#BottomPanel
 -ComponentId:S(BottomPanelComponent)
 -_panelLocation:I(4)
 -_panelManager_id:S(PanelManagerComponent)
--_panelColor:C(219, 219, 219, 225)
+-_panelColor:C(42, 42, 42, 255)
+-_borderColor:C(20, 20, 20, 255)
+-_borderThickness:F(2.0)
 
 E#LeftPanel
 -IsActive:B(true)
@@ -663,7 +665,65 @@ E#LeftPanel
 -ComponentId:S(LeftPanelComponent)
 -_panelLocation:I(1)
 -_panelManager_id:S(PanelManagerComponent)
--_panelColor:C(130, 130, 130, 255)
+-_panelColor:C(42, 42, 42, 255)
+-_borderColor:C(20, 20, 20, 255)
+-_borderThickness:F(2.0)
+
+E#LeftPanelTabsContainer
+-IsActive:B(true)
+-ObjectId:S(LeftPanelTabsContainer)
+-ZIndex:I(10)
+-Parent_id:S(LeftPanel)
+@TransformComponent
+-ComponentId:S(LeftPanelContTransform)
+@PanelTabContainer
+-ComponentId:S(LeftPanelTabsContainerComp)
+-_headerColor:C(61, 61, 61, 255)
+-_borderColor:C(92, 92, 92, 255)
+@HorizontalBox
+-OwningUI_id:S(LeftPanelTabsContainerComp)
+-VerticalAlignment:I(1)
+-VerticalAlignmentOffset:F(-27)
+-PaddingLeft:F(4)
+-Anchor:I(1)
+-Origin:I(1)
+
+E#InspectorPanelTab
+-IsActive:B(true)
+-ObjectId:S(InspectorPanelTab)
+-ZIndex:I(199)
+-Parent_id:S(LeftPanelTabsContainer)
+@TransformComponent
+-ComponentId:S(InspectorPanelTanTrans)
+@PanelTabComponent
+-_tabNormalColor:C(40, 40, 40, 255)
+-_tabHoverColor:C(50, 50, 50, 255)
+-TabName:S(Inspector)
+-_tabContainer_id:S(LeftPanelTabsContainerComp)
+-_panelReference_id:S(LeftPanelComponent)
+-Height:F(20)
+-Width:F(100)
+-Anchor:I(1)
+-Origin:I(1)
+
+E#SceneTree
+-IsActive:B(true)
+-ObjectId:S(SceneTreeTab)
+-ZIndex:I(199)
+-Parent_id:S(LeftPanelTabsContainer)
+@TransformComponent
+-ComponentId:S(SceneTreeTransform)
+@PanelTabComponent
+-_tabNormalColor:C(40, 40, 40, 255)
+-_tabHoverColor:C(50, 50, 50, 255)
+-TabName:S(Scene Tree)
+-_tabContainer_id:S(LeftPanelTabsContainerComp)
+-_panelReference_id:S(LeftPanelComponent)
+-Height:F(20)
+-Width:F(100)
+-Anchor:I(1)
+-Origin:I(1)
+
 
 E#RightPanel
 -IsActive:B(true)
@@ -675,4 +735,6 @@ E#RightPanel
 -ComponentId:S(RightPanelComponent)
 -_panelLocation:I(2)
 -_panelManager_id:S(PanelManagerComponent)
--_panelColor:C(65, 65, 65, 255)
+-_panelColor:C(42, 42, 42, 255)
+-_borderColor:C(20, 20, 20, 255)
+-_borderThickness:F(2.0)

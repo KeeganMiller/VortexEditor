@@ -12,7 +12,7 @@ public static class VortexEditor
         Game.Initialize(args);
         Raylib.SetExitKey(0);
         Raylib.SetWindowState(ConfigFlags.ResizableWindow);
-        Game.BackgroundColor = new Raylib_cs.Color(143, 143, 143, 225);
+        Game.BackgroundColor = new Color(75, 141, 191, 255);
         SceneManager.AddScene(new Editor("Editor", "Scenes/Editor.vt"));
         Game.Run();
     }
