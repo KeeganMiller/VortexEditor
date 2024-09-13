@@ -22,16 +22,10 @@ public class ToolbarComponent : UIComponent
     public Color ShadowColor { get; set; } = new Color(32, 32, 32, 50);
     public float ShadowDistance { get; set; } = 5f;
     public Vector2 ShadowOffset { get; set; } = Vector2.Zero;
-    private EShadowDirection _shadowDirection = EShadowDirection.SHADOW_None;
+    public EShadowDirection ShadowDirection { get; set; } = EShadowDirection.SHADOW_None;
 
     // == Shadow Position == //
     private Vector2 _shadowPosition = Vector2.Zero;                  // Reference to where the shadow will be drawn
-
-    public int ShadowDirection 
-    {
-        get => (int)_shadowDirection;
-        set => _shadowDirection = (EShadowDirection)value;
-    }
     
     private TextComponent? _fileTextComp { get; set; }
     private MenuDropdown? _fileDropdownComponent{ get; set; }
@@ -126,7 +120,7 @@ public class ToolbarComponent : UIComponent
     public override void Draw()
     {
         base.Draw();
-        if(_shadowDirection != EShadowDirection.SHADOW_None)
+        if(ShadowDirection != EShadowDirection.SHADOW_None)
         {
             Raylib.DrawRectangleRec(new Rectangle(_shadowPosition, Width * OwnerTransform.Scale.X, Height * OwnerTransform.Scale.Y), ShadowColor);
         }
@@ -136,9 +130,9 @@ public class ToolbarComponent : UIComponent
 
     public void UpdateShadowPosition()
     {
-        if(_shadowDirection != EShadowDirection.SHADOW_None)
+        if(ShadowDirection != EShadowDirection.SHADOW_None)
         {
-            switch(_shadowDirection)
+            switch(ShadowDirection)
             {
                 case EShadowDirection.SHADOW_Top:
                     _shadowPosition = new Vector2(OwnerTransform.Position.X + ShadowOffset.X, OwnerTransform.Position.Y - (ShadowDistance + ShadowOffset.Y));
@@ -192,128 +186,4 @@ public class ToolbarComponent : UIComponent
         textComp = text;
         dropdownComp = dropdown;
     }
-
-    /*
-    private void GetFileDropdownAndButton(ResourceManager resources)
-    {
-        if(!string.IsNullOrEmpty(FileTextCompId))
-            _fileTextComp = (TextComponent)Component.FindComponentById(FileTextCompId);
-
-        if(!string.IsNullOrEmpty(FileDropdownId))
-            _fileDropdownComponent = (MenuDropdown)Component.FindComponentById(FileDropdownId);
-
-        if(_fileTextComp != null && _fileDropdownComponent != null)
-        {
-            _fileTextComp.IsClickable = true;
-            _fileTextComp.OnClick += () => 
-            {
-                if(_activeDropdown == _fileDropdownComponent && _fileDropdownComponent.IsActive)
-                {
-                    ToggleDropdown(null);
-                } else 
-                {
-                    ToggleDropdown(_fileDropdownComponent);
-                }
-            };
-        }
-    }
-
-    private void GetElementDropdownAndButton(ResourceManager resources)
-    {
-        if(!string.IsNullOrEmpty(ElementTextCompId))
-            _elementTextComp = (TextComponent)Component.FindComponentById(ElementTextCompId);
-
-        if(!string.IsNullOrEmpty(ElementDropdownId))
-            _elementDropdownComponent = (MenuDropdown)Component.FindComponentById(ElementDropdownId);
-
-        if(_elementTextComp != null && _elementDropdownComponent != null)
-        {
-            _elementTextComp.IsClickable = true;
-            _elementTextComp.OnClick += () =>
-            {
-                if(_activeDropdown == _elementDropdownComponent && _elementDropdownComponent.IsActive)
-                {
-                    ToggleDropdown(null);
-                } else 
-                {
-                    ToggleDropdown(_elementDropdownComponent);
-                }
-            };
-        }
-    }
-
-    
-
-    private void GetComponentDropdownAndButton(ResourceManager resources)
-    {
-        if(!string.IsNullOrEmpty(ComponentTextCompId))
-            _componentTextComp = resources.GetComponentById<TextComponent>(ComponentTextCompId);
-
-        if(!string.IsNullOrEmpty(ComponentDropdownId))
-            _componentDropdownComponent = resources.GetComponentById<MenuDropdown>(ComponentDropdownId);
-
-        if(_componentTextComp != null && _componentDropdownComponent != null)
-        {
-            _componentTextComp.IsClickable = true;
-            _componentTextComp.OnClick += () => 
-            {
-                if(_activeDropdown == _componentDropdownComponent && _componentDropdownComponent.IsActive)
-                {
-                    ToggleDropdown(null);
-                } else 
-                {
-                    ToggleDropdown(_componentDropdownComponent);
-                }
-            };
-        }
-    }
-
-    private void GetProjectDropdownAndButton(ResourceManager resources)
-    {
-        if(!string.IsNullOrEmpty(ProjectTextCompId))
-            _projectTextComp = (TextComponent)Component.FindComponentById(ProjectTextCompId);
-
-        if(!string.IsNullOrEmpty(ProjectDropdownId))
-            _projectDropdownComponent = (MenuDropdown)Component.FindComponentById(ProjectDropdownId);
-
-        if(_projectDropdownComponent != null && _projectTextComp != null)
-        {
-            _projectTextComp.IsClickable = true;
-            _projectTextComp.OnClick += () => 
-            {
-                if(_activeDropdown == _projectDropdownComponent && _projectDropdownComponent.IsActive)
-                {
-                    ToggleDropdown(null);
-                } else 
-                {
-                    ToggleDropdown(_projectDropdownComponent);
-                }
-            };
-        }
-    }
-
-    private void GetToolsDropdownAndButton(ResourceManager resources)
-    {
-        if(!string.IsNullOrEmpty(ToolsTextCompId))
-            _toolsTextComp = (TextComponent)Component.FindComponentById(ToolsTextCompId);
-
-        if(!string.IsNullOrEmpty(ToolsDropdownId))
-            _toolsDropdownComponent = (MenuDropdown)Component.FindComponentById(ToolsDropdownId);
-
-        if(_toolsTextComp != null && _toolsDropdownComponent != null)
-        {
-            _toolsTextComp.IsClickable = true;
-            _toolsTextComp.OnClick += () => 
-            {
-                if(_activeDropdown == _toolsDropdownComponent && _toolsDropdownComponent.IsActive)
-                {
-                    ToggleDropdown(null);
-                } else 
-                {
-                    ToggleDropdown(_toolsDropdownComponent);
-                }
-            };
-        }
-    }
-    */
 }
