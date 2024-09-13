@@ -14,7 +14,7 @@ E#Toolbar
 -Height:F(30)
 -Width:F(300)
 -ToolbarColor:C(56, 56, 56, 255)
--ShadowDirection:I(4)
+-ShadowDirection:I(0)
 -_fileTextComp_id:S(Comp_7)
 -_fileDropdownComponent_id:S(SceneDropdownComp)
 -_elementTextComp_id:S(ElementToggleText)
@@ -632,7 +632,7 @@ E#NeWindowScriptText
 
 E#PanelManager:
 -IsActive:B(true)
--ObjectId:(PanelManager)
+-ObjectId:S(PanelManager)
 @TransformComponent
 -ComponentId:S(PanelManagerTransform)
 @PanelManager
@@ -644,6 +644,7 @@ E#PanelManager:
 E#BottomPanel
 -IsActive:B(true)
 -ObjectId:S(BottomPanel)
+-ZIndex:I(-1)
 @TransformComponent
 -ComponentId:S(BottomPanelTransform)
 @PanelComponent
@@ -655,6 +656,7 @@ E#BottomPanel
 E#LeftPanel
 -IsActive:B(true)
 -ObjectId:S(LeftPanel)
+-ZIndex:I(-1)
 @TransformComponent
 -ComponentId:S(LeftPanelTransform)
 @PanelComponent
@@ -666,6 +668,7 @@ E#LeftPanel
 E#RightPanel
 -IsActive:B(true)
 -ObjectId:S(RightPanel)
+-ZIndex:I(-1)
 @TransformComponent
 -ComponentId:S(RightPanelTransform)
 @PanelComponent
