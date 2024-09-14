@@ -66,6 +66,9 @@ public class PanelComponent : UIComponent
             _panelContainer = Owner.GetComponentInChild<PanelTabContainer>();
         if(_panelContainer == null)
             Debug.Print("PanelComponent::Constructor -> Failed to get reference to the panel container", EPrintMessageType.PRINT_Warning);
+
+        Game.WindowSettings.WindowResizeEvent += SetDefaultSize;
+        Game.WindowSettings.WindowResizeEvent += ResizeWindowAction;
     }
 
     public override void Start()
@@ -107,7 +110,7 @@ public class PanelComponent : UIComponent
     /// <summary>
     /// Sets the default size of the panel based on the location of the panel
     /// </summary>
-    private void SetDefaultSize()
+    private void SetDefaultSize(int width = 100, int height = 100)
     {
         if(_panelManager == null)
             return;
@@ -197,10 +200,10 @@ public class PanelComponent : UIComponent
     /// <summary>
     /// Handles resizing the panel in editor
     /// </summary>
-    private void ResizePanel()
+    private void ResizePanel(bool windowResizeEvent = false)
     {
         // Direction and length to move the panel
-        var nextStep = Input.GetMousePosition(false) - _lastResizeMousePos;
+        var nextStep = windowResizeEvent ? Vector2.Zero : Input.GetMousePosition(false) - _lastResizeMousePos;
 
         // Switch checks if the movement is within the min/max sizes
         // and updates the size of the panel
@@ -255,6 +258,9 @@ public class PanelComponent : UIComponent
     {
         if(_panelManager == null)
             return false;
+
+        if(nextStep == Vector2.Zero)
+            return true;
         
         switch(PanelLocation)
         {   
@@ -341,10 +347,13 @@ public class PanelComponent : UIComponent
         Raylib.DrawLineEx(_borderStartPosition, _borderEndPosition, _borderThickness, _borderColor);
     }
 
+    private void ResizeWindowAction(int width, int height)
+        => ResizePanel();
+
     /// <summary>
     /// Determines where the border should display
     /// </summary>
-    public void UpdateBorderPosition()
+    public void UpdateBorderPosition(int width = 100, int height = 100)
     {
         if(_panelManager == null)
             return;

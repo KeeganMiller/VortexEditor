@@ -15,7 +15,7 @@ public class PanelManager : Component
     /// <summary>
     /// Updates all the panels borders
     /// </summary>
-    public void UpdateBorders()
+    public void UpdateBorders(int width = 100, int height = 100)
     {
         if(PanelLeft != null)
             PanelLeft.UpdateBorderPosition();
