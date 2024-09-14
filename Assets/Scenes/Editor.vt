@@ -640,6 +640,7 @@ E#PanelManager:
 -PanelLeft_id:S(LeftPanelComponent)
 -PanelRight_id:S(RightPanelComponent)
 -PanelBottom_id:S(BottomPanelComponent)
+-PanelTop_id:S(TopPanelComponent)
 
 E#BottomPanel
 -IsActive:B(true)
@@ -796,3 +797,18 @@ E#SceneTree
 -Anchor:I(1)
 -Origin:I(1)
 -IsSelected:B(true)
+
+E#TopPanel
+-IsActive:B(true)
+-ObjectId:S(TopPanel)
+-ZIndex:I(-1)
+@TransformComponent
+-ComponentId:S(TopPanelTransform)
+@PanelComponent
+-ComponentId:S(TopPanelComponent)
+-PanelLocation:I(3)
+-_panelManager_id:S(PanelManagerComponent)
+-_panelColor:C(42, 42, 42, 255)
+-_borderColor:C(20, 20, 20, 255)
+-_borderThickness:F(2.0)
+-IsResizable:B(false)

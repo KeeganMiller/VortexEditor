@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Numerics;
+using System.Reflection.Metadata;
 using Raylib_cs;
 using Vortex;
 
@@ -37,12 +38,19 @@ public class PanelComponent : UIComponent
     private bool _isMouseOverEdge = false;
     private bool _isResizing = false;
     private Vector2 _lastResizeMousePos;
+    public bool IsResizable { get; set; } = true;
 
     // == Border Properties == //
     private Vector2 _borderStartPosition = Vector2.Zero;
     private Vector2 _borderEndPosition = Vector2.Zero;
     private Color _borderColor { get; set; } = Color.White;
     private float _borderThickness { get; set; } = 1;
+
+    // == Border Top Properties == //
+    private Vector2 _borderLeftStartPosition = Vector2.Zero;
+    private Vector2 _borderLeftEndPosition = Vector2.Zero;
+    private Vector2 _borderRightStartPosition = Vector2.Zero;
+    private Vector2 _borderRightEndPosition = Vector2.Zero;
 
     public override void Constructor(ResourceManager resourceManager)
     {
@@ -79,7 +87,7 @@ public class PanelComponent : UIComponent
         // Set the offset to the height of the tool bar
         Offset = new Vector2
         {
-            X = 0,
+            X = Offset.X,
             Y = _toolbarHeight
         };
         
@@ -95,6 +103,11 @@ public class PanelComponent : UIComponent
                 break;
             case EPanelLocation.PANEL_Down:
                 SetOriginAndAnchor(EOriginLocation.ORIGIN_BottomLeft, EAnchorLocation.ANCHOR_BottomLeft);
+                break;
+            case EPanelLocation.PANEL_Up:
+                SetOriginAndAnchor(EOriginLocation.ORIGIN_TopLeft, EAnchorLocation.ANCHOR_TopLeft);
+                if(_panelManager != null && _panelManager.PanelLeft != null)
+                    Offset = new Vector2(Offset.X + _panelManager.PanelLeft.Width, Offset.Y);
                 break;
             default:
                 if(_panelManager != null)
@@ -121,6 +134,10 @@ public class PanelComponent : UIComponent
                 Width = Game.WindowSettings.WindowWidth;
                 Height = 200;
                 break;
+            case EPanelLocation.PANEL_Up:
+                Width = Game.WindowSettings.WindowWidth - _panelManager.PanelLeft.Width - _panelManager.PanelRight.Width;
+                Height = 25;
+                break;
             case EPanelLocation.PANEL_Left:
             case EPanelLocation.PANEL_Right:
                 Width = 200;
@@ -140,25 +157,28 @@ public class PanelComponent : UIComponent
         HandleMouseCursor();                        
         
         
-        if(IsMouseOver && IsMouseOverEdge())
+        if(IsResizable)
         {
-            // If the mouse is over the panel the edge, once clicked begin resize
-            if(Input.IsMouseButtonClicked(EMouseButton.MOUSE_Left))
+            if(IsMouseOver && IsMouseOverEdge())
             {
-                _isResizing = true;
-                _lastResizeMousePos = Input.GetMousePosition(false);
+                // If the mouse is over the panel the edge, once clicked begin resize
+                if(Input.IsMouseButtonClicked(EMouseButton.MOUSE_Left))
+                {
+                    _isResizing = true;
+                    _lastResizeMousePos = Input.GetMousePosition(false);
+                }
             }
-        }
 
-        // If we are resizing and the mouse button is released stop the resize
-        if(_isResizing && Input.IsMouseButtonReleased(EMouseButton.MOUSE_Left))
-        {
-            _isResizing = false;
-        }
+            // If we are resizing and the mouse button is released stop the resize
+            if(_isResizing && Input.IsMouseButtonReleased(EMouseButton.MOUSE_Left))
+            {
+                _isResizing = false;
+            }
 
-        // Handle resizing
-        if(_isResizing)
-            ResizePanel();
+            // Handle resizing
+            if(_isResizing)
+                ResizePanel();
+        }
     }
 
     /// <summary>
@@ -211,11 +231,25 @@ public class PanelComponent : UIComponent
         {
             case EPanelLocation.PANEL_Left:
                 if(IsWithinBounds(nextStep))
+                {
                     Width += nextStep.X;
+                    if(_panelManager != null && _panelManager.PanelTop != null)
+                    {
+                        _panelManager.PanelTop.Width -= nextStep.X;
+                        _panelManager.PanelTop.Offset = new Vector2(Width, Offset.Y);
+                    }
+                }
                 break;
             case EPanelLocation.PANEL_Right:
                 if(IsWithinBounds(nextStep))
+                {
                     Width -= nextStep.X;
+                    if(_panelManager != null && _panelManager.PanelTop != null && _panelManager.PanelLeft != null)
+                    {
+                        _panelManager.PanelTop.Width += nextStep.X;
+                        _panelManager.PanelTop.Offset = new Vector2(_panelManager.PanelLeft.Width, Offset.Y);
+                    }
+                }
                 break;
             case EPanelLocation.PANEL_Up:
                 if(IsWithinBounds(nextStep))
@@ -258,9 +292,6 @@ public class PanelComponent : UIComponent
     {
         if(_panelManager == null)
             return false;
-
-        if(nextStep == Vector2.Zero)
-            return true;
         
         switch(PanelLocation)
         {   
@@ -299,6 +330,7 @@ public class PanelComponent : UIComponent
     /// <returns>Mouse over the edge</returns>
     private bool IsMouseOverEdge()
     {
+
         float left = 0;
         float right = 0;
         float top = 0;
@@ -345,6 +377,12 @@ public class PanelComponent : UIComponent
         base.Draw();
         Raylib.DrawRectangleRec(new Rectangle(Owner.Transform.Position, Width * Owner.Transform.Scale.X, Height * Owner.Transform.Scale.Y), _panelColor);
         Raylib.DrawLineEx(_borderStartPosition, _borderEndPosition, _borderThickness, _borderColor);
+
+        if(PanelLocation == EPanelLocation.PANEL_Up)
+        {
+            Raylib.DrawLineEx(_borderLeftStartPosition, _borderLeftEndPosition, _borderThickness, _borderColor);
+            Raylib.DrawLineEx(_borderRightStartPosition, _borderRightEndPosition, _borderThickness, _borderColor);
+        }
     }
 
     private void ResizeWindowAction(int width, int height)
@@ -375,6 +413,10 @@ public class PanelComponent : UIComponent
             case EPanelLocation.PANEL_Up:
                 _borderStartPosition = new Vector2(Owner.Transform.Position.X, Owner.Transform.Position.Y + Height);
                 _borderEndPosition = new Vector2(Owner.Transform.Position.X + Width, Owner.Transform.Position.Y + Height);
+                _borderLeftStartPosition = Owner.Transform.Position;
+                _borderLeftEndPosition = new Vector2(Owner.Transform.Position.X, Owner.Transform.Position.Y + Height);
+                _borderRightStartPosition = new Vector2(Owner.Transform.Position.X + Width, Owner.Transform.Position.Y);
+                _borderRightEndPosition = new Vector2(Owner.Transform.Position.X + Width, Owner.Transform.Position.Y + Height);
                 break;
             
         }
