@@ -812,3 +812,41 @@ E#TopPanel
 -_borderColor:C(20, 20, 20, 255)
 -_borderThickness:F(2.0)
 -IsResizable:B(false)
+
+E#TopPanelTabContainer
+-IsActive:B(true)
+-ObjectId:S(TopPanelTabContainer)
+-ZIndex:I(10)
+-Parent_id:S(TopPanel)
+@TransformComponent
+-ComponentId:S(TopPanelTabContainerTransform)
+@PanelTabContainer
+-ComponentId:S(TopPanelTanComponent)
+-_headerColor:C(61, 61, 61, 255)
+-_borderColor:C(92, 92, 92, 255)
+@HorizontalBox
+-OwningUI_id:S(RightPanelTabsContainerComp)
+-VerticalAlignment:I(1)
+-VerticalAlignmentOffset:F(-27)
+-PaddingLeft:F(4)
+-Anchor:I(1)
+-Origin:I(1)
+
+E#SceneView
+-IsActive:B(true)
+-ObjectId:S(SceneViewTab)
+-ZIndex:I(199)
+-Parent_id:S(TopPanelTabContainer)
+@TransformComponent
+-ComponentId:S(SceneViewTabTransform)
+@PanelTabComponent
+-_tabNormalColor:C(61, 61, 61, 255)
+-_tabHoverColor:C(50, 50, 50, 255)
+-TabName:S(Scene Tree)
+-_tabContainer_id:S(TopPanelTanComponent)
+-_panelReference_id:S(TopPanelComponent)
+-Height:F(20)
+-Width:F(100)
+-Anchor:I(1)
+-Origin:I(1)
+-IsSelected:B(true)
