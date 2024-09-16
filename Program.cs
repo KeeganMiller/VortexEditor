@@ -9,6 +9,7 @@ public static class VortexEditor
     public static void Main(string[] args)
     {
         Game.DefaultNamespace = "VortexEditor";
+        AssetLoader.LoadAllAssets();
         Game.Initialize(args);
         Raylib.SetExitKey(0);
         Raylib.SetWindowState(ConfigFlags.ResizableWindow);
