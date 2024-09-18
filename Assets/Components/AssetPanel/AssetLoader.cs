@@ -4,25 +4,49 @@ using Raylib_cs;
 using System.IO;
 using Microsoft.VisualBasic;
 using System.Reflection.Metadata;
+using System.Security.Cryptography;
 
 namespace VortexEditor;
 
 public static class AssetLoader
 {
-    private static AssetFolder? _rootFolder = null;
-    
-    public static void LoadAllAssets()
-    {
-        string defaultPath = "Assets/";
-        if(string.IsNullOrEmpty(defaultPath))
-            return;
+    public static bool FilesLoaded = false;
 
-        _rootFolder = new AssetFolder(defaultPath);
+    private static AssetFolder? _rootFolder = null;
+
+    public static bool IsConsole { get; private set; }
+    
+    public static void LoadAllAssets(bool isConsole = false)
+    {
+        IsConsole = isConsole;
+        
+        if(string.IsNullOrEmpty(AssetsPath(isConsole)))
+            return;
+        
+        _rootFolder = new AssetFolder(AssetsPath(isConsole));
+        _rootFolder.Initialize();
     }
 
     public static void CheckForChangesOnLaunch()
     {
 
+    }
+
+    public static string AssetsPath(bool isConsole)
+    {
+        if(isConsole)
+            return Path.Combine(Directory.GetCurrentDirectory(), "Assets\\");
+
+        var currentDir = Directory.GetCurrentDirectory();
+        var nextDirectory = currentDir.Replace("bin\\Debug\\net8.0", "");
+        return Path.Combine(nextDirectory, "Assets\\");
+    }
+
+    public static void PrintError(string error)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("Failed to locate file to write to file");
+        Console.ForegroundColor = ConsoleColor.White;
     }
 }
 
@@ -32,110 +56,183 @@ public class AssetFolder : AssetFile
 
     public AssetFolder(string fullPath) : base(Path.GetFileName(fullPath), fullPath, true, null)
     {
+        
+    }
+
+    public void Initialize()
+    {
         GetDirectoriesInFolder();
         GetAllFiles();
-        WriteToFile();
+        CheckForChanges();
     }
 
     private void GetDirectoriesInFolder()
     {
-        var directories = Directory.GetDirectories(Game.GetAssetPath() + FullPath);
+        var directories = Directory.GetDirectories(FullPath);
         foreach(var d in directories)
         {
             var folder = new AssetFolder(d);
+            folder.Initialize();
             FilesInDirectory.Add(folder);
         }
     }
 
     private void GetAllFiles()
     {
-        var files = Directory.GetFiles(Game.GetAssetPath() + FullPath);
+        var files = Directory.GetFiles(FullPath);
         foreach(var filePath in files)
         {
-            //Debug.Print(filePath, EPrintMessageType.PRINT_Log);
-            var dataType = GetDataFileType(Path.GetExtension(filePath));
-            var fileName = Path.GetFileNameWithoutExtension(filePath);
-            var id = Guid.NewGuid().ToString();
-
-            AssetData? asset = null;
-
-            var path = filePath.Replace("Assets/", "");
-
-            switch(dataType)
-            {
-                case EAssetType.ASSET_Sprite:
-                    asset = new SpriteData(fileName, id, path, dataType);
-                    break;
-                case EAssetType.ASSET_Font:
-                    asset = new FontAsset(fileName, id, path, dataType);
-                    break;
-                case EAssetType.ASSET_Shader:
-                    asset = new FontAsset(fileName, id, path, dataType);
-                    break;
-            }
-            // TODO: Add remaining asset data types
-
-            if(asset != null)
-            {
-                var file = new AssetFile(fileName, filePath, false, asset);
-                FilesInDirectory.Add(file);
-            }
+            CreateFile(filePath);
         }
     }
 
-    private void WriteToFile()
+    private void WriteToFile(string line)
     {
-        var resourcePath = Game.GetAssetPath() + "GlobalResources.vt";
-        if(!File.Exists(resourcePath))
+        var resourcePath = Path.Combine(AssetLoader.AssetsPath(AssetLoader.IsConsole), "GlobalResources.vt");
+        var assetPath = Path.GetFullPath(line);
+        assetPath = assetPath.Replace(AssetLoader.AssetsPath(AssetLoader.IsConsole), "");
+        var asset = FindAssetFileByPath(assetPath);
+        if(asset != null)
         {
-            File.Create(resourcePath);
-        }
-
-        if(!File.Exists(resourcePath))
-        {
-            Debug.Print("AssetLoader::WriteToFile -> Failed to find/create resource file", EPrintMessageType.PRINT_Error);
-            return;
-        }
-
-        var currentFileData = File.ReadAllLines(resourcePath).ToList();
-
-        foreach(var path in FilesInDirectory)
-        {
-
-            if(path is AssetFile file)
-            {
-                if(file.Data == null)
-                continue;
-
-                currentFileData.Add($"A#{file.FileName}");
-                currentFileData.Add($"-AssetId:S({file.Data.AssetId})");
-                currentFileData.Add($"-AssetPath:S({file.FullPath})");
-                currentFileData.Add($"-AssetType:S({GetDataTypeAsString(file.Data.AssetType)})");
-                currentFileData.Add("");
-            }
-        }
-
-        using(var sw = new StreamWriter(resourcePath))
-        {
-            foreach(var data in currentFileData)
-            {
-                sw.WriteLine(data);
-            }
-            
-            sw.Close();
+            Console.WriteLine($"Writing to file -> {line}");
+            var data = asset.GetFileLines();
+            data.Add("");
+            File.AppendAllLines(resourcePath, data);
         }
     }
 
-    public bool CheckForChanges()
+    private List<string>? CreateFile(string path)
     {
-        var resourcePath = Game.GetAssetPath() + "GlobalResources.vt";
+        var fileLines = new List<string>();                     // Pre-defined file lines
+        AssetData? asset = null;                            // Define the asset file
+
+        var curDirectory = Directory.GetCurrentDirectory();
+        
+        var assetFilePath = path.Replace(AssetLoader.AssetsPath(AssetLoader.IsConsole), "");       // Reference to the asset file path
+        var dataType = GetDataFileType(Path.GetExtension(path));                            // Get the type of data that it is
+        var fileName = Path.GetFileNameWithoutExtension(path);                          // Get the name of the file
+        var id = Guid.NewGuid().ToString();                     // Create an ID for the file
+
+        // Create the data file based on the asset
+        switch(dataType)
+        {
+            case EAssetType.ASSET_Sprite:
+                asset = new SpriteData(fileName, id, assetFilePath, dataType);
+                break;
+            case EAssetType.ASSET_Font:
+                asset = new FontAsset(fileName, id, assetFilePath, dataType);
+                break;
+            case EAssetType.ASSET_Shader:
+                asset = new FontAsset(fileName, id, assetFilePath, dataType);
+                break;
+        }
+
+        if(asset != null)
+        {
+            var file = new AssetFile(fileName, assetFilePath , false, asset);
+
+            FilesInDirectory.Add(file);
+            fileLines = file.GetFileLines();
+        }
+
+        return fileLines;
+        
+    }
+
+
+    private void RemoveFile(List<string> fileString)
+    {
+        
+        var resourcePath = Path.Combine(AssetLoader.AssetsPath(AssetLoader.IsConsole), "GlobalResources.vt");
+
+        var lines = File.ReadAllLines(resourcePath).ToList();
+
+        int index = lines.FindIndex(line => line.Contains(fileString[0]));
+        lines.RemoveRange(index - 1, 4);
+        File.WriteAllLines(resourcePath, lines);
+    }
+
+    private AssetFile FindAssetFileByPath(string path)
+    {
+        foreach(var file in FilesInDirectory)
+        {
+            var filePath = file.FullPath.Replace(AssetLoader.AssetsPath(AssetLoader.IsConsole), "");
+            if(file.FullPath == path)
+                return file;
+        }
+
+        return null;
+    }
+
+    public void CheckForChanges()
+    {
+        var changes = new List<string>();
+        var resourcePath = Path.Combine(AssetLoader.AssetsPath(AssetLoader.IsConsole), "GlobalResources.vt");
         if(File.Exists(resourcePath))
         {
+            // Get all the lines and files
             var lines = File.ReadAllLines(resourcePath);
-            var dataList = new List<AssetFile>(FilesInDirectory);
-        } 
+            var files = Directory.GetFiles(FullPath);
 
-        return true;
+            // Checks if file has been removed
+            bool fileRemove = true;
+            if(lines.Length > 0)
+            {
+                for(var i = 0; i < lines.Length; ++i)
+                {
+                    // Check that we are looking at the asset path
+                    if(!lines[i].Contains("-AssetPath:S"))
+                        continue;
+
+                    // Remove Indicators/Identifiers
+                    var removedIdentifier = lines[i].Replace("-AssetPath:S(", "");
+                    var assetPath = removedIdentifier.Replace(")", "");
+
+                    // Check if the file exist
+                    if(File.Exists(AssetLoader.AssetsPath(AssetLoader.IsConsole) + assetPath))
+                        continue;
+
+                    var linesList = new List<string>();                     // Define list of lines to remove
+                    // Add each line for the file
+                    for(var j = -1; j < 3; ++j)
+                    {
+                        linesList.Add(lines[i + j]);
+                    }
+
+                    RemoveFile(linesList);                  // Remove the file
+
+                }
+            }
+
+            if(files.Length > 0)
+            {
+                for(var i = 0; i < files.Length; ++i)
+                {
+                    bool assetInFile = false;
+                    foreach(var line in lines)
+                    {
+                            
+                        if(!line.Contains("-AssetPath:S("))
+                            continue;
+
+                        var lineIdentifierRemoved = line.Replace("-AssetPath:S(", "");
+                        lineIdentifierRemoved = lineIdentifierRemoved.Replace(")", "");
+                        var fileIdentifierRemoved = files[i].Replace(AssetLoader.AssetsPath(AssetLoader.IsConsole), "");
+
+                        if(lineIdentifierRemoved == fileIdentifierRemoved)
+                        {
+                            assetInFile = true;
+                            break;
+                        }
+                    }
+
+                    if(!assetInFile || lines.Count() == 0)
+                    {
+                        WriteToFile(files[i]);
+                    }
+                }
+            }
+        } 
     }
 
     public string GetDataTypeAsString(EAssetType type)
@@ -202,5 +299,31 @@ public class AssetFile
         Data = data;
         FileName = fileName;
         FullPath = isDirectory ? fullPath : $"{fullPath}";
+    }
+
+    public List<string> GetFileLines()
+    {
+        return new List<string>
+        {
+            $"A#{FileName}",
+            $"-AssetId:S({Data.AssetId})",
+            $"-AssetPath:S({Data.AssetPath})",
+            $"-AssetType:S({GetDataTypeAsString(Data.AssetType)})",
+        };
+    }
+
+    public string GetDataTypeAsString(EAssetType type)
+    {
+        return type switch
+        {
+            EAssetType.ASSET_Sprite => "Texture",
+            EAssetType.ASSET_Font => "Font",
+            EAssetType.ASSET_Shader => "Shader",
+            EAssetType.ASSET_Code => "Code",
+            EAssetType.ASSET_Scene => "Scene",
+            EAssetType.ASSET_Prefab => "Prefab",
+            EAssetType.ASSET_Sound => "Sound",
+            _ => "null"
+        };
     }
 }
