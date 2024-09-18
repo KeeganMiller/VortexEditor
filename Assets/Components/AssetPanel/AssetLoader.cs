@@ -82,8 +82,37 @@ public class AssetFolder : AssetFile
         var files = Directory.GetFiles(FullPath);
         foreach(var filePath in files)
         {
-            CreateFile(filePath);
+            var filesData = GetLinesInFile(filePath);
+            if(filesData != null)
+            {
+                CreateFile(filesData);
+            } else 
+            {
+                CreateFile(filePath);
+            }
         }
+    }
+
+    private List<string>? GetLinesInFile(string filePath)
+    {
+        var path = filePath.Replace(AssetLoader.AssetsPath(AssetLoader.IsConsole), "");
+
+        var lines = File.ReadAllLines(Path.Combine(AssetLoader.AssetsPath(AssetLoader.IsConsole), "GlobalResources.vt"));
+        for(var i = 0; i < lines.Length; ++i)
+        {
+            if(lines[i] == $"-AssetPath:S({path})")
+            {
+                return new List<string>
+                {
+                    lines[i - 2],
+                    lines[i - 1],
+                    lines[i],
+                    lines[i + 1]
+                };
+            }
+        }
+
+        return null;
     }
 
     private void WriteToFile(string line)
@@ -137,6 +166,37 @@ public class AssetFolder : AssetFile
 
         return fileLines;
         
+    }
+
+    private void CreateFile(List<string> relatedLines)
+    {
+        var assetFilePath = relatedLines[2];
+        var dataTypeAsString = relatedLines[3].Replace("-AssetType:S(", "");
+        dataTypeAsString = dataTypeAsString.Replace(")", "");
+        var dataType = GetDataFileTypeByFileData(dataTypeAsString);                            // Get the type of data that it is
+        var fileName = Path.GetFileNameWithoutExtension(relatedLines[0]);                          // Get the name of the file
+        var id = relatedLines[1];                     // Create an ID for the file
+
+        AssetData? asset = null;
+        // Create the data file based on the asset
+        switch(dataType)
+        {
+            case EAssetType.ASSET_Sprite:
+                asset = new SpriteData(fileName, id, assetFilePath, dataType);
+                break;
+            case EAssetType.ASSET_Font:
+                asset = new FontAsset(fileName, id, assetFilePath, dataType);
+                break;
+            case EAssetType.ASSET_Shader:
+                asset = new FontAsset(fileName, id, assetFilePath, dataType);
+                break;
+        }
+
+        if(asset != null)
+        {
+            var file = new AssetFile(fileName, assetFilePath, false, asset);
+            FilesInDirectory.Add(file);
+        }
     }
 
 
@@ -282,6 +342,19 @@ public class AssetFolder : AssetFile
                 return EAssetType.ASSET_Error;
 
         }
+    }
+
+    public EAssetType GetDataFileTypeByFileData(string type)
+    {
+        return type switch
+        {
+            "Font" => EAssetType.ASSET_Font,
+            "Shader" => EAssetType.ASSET_Shader,
+            "Texture" => EAssetType.ASSET_Sprite,
+            _ => EAssetType.ASSET_Error
+        };
+
+    
     }
 }
 

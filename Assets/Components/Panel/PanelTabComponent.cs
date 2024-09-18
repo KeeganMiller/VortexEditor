@@ -134,8 +134,8 @@ public class PanelTabComponent : UIComponent
             Name = _tabName,
             ComponentId = Guid.NewGuid().ToString(),
             Text = _tabName,
-            NormalFont = SceneManager.GlobalResources.GetAssetById<FontAsset>("Asset_1"),
-            _fontShaderAsset = SceneManager.GlobalResources.GetAssetById<ShaderAsset>("Asset_3"),
+            NormalFont = SceneManager.GlobalResources.GetAssetById<FontAsset>("82bad9f2-b7a9-4b23-965c-1e157e4abf1e"),
+            _fontShaderAsset = SceneManager.GlobalResources.GetAssetById<ShaderAsset>("e7dc9093-3057-44b1-a4b9-8d364b4aacb7"),
             FontColor = Color.White,
             FontSize = 14
         };
