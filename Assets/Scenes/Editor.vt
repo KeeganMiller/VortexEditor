@@ -61,6 +61,7 @@ E#SceneDropdown
 -IsActive:B(false)
 -ObjectId:S(SceneDropdown)
 -Parent_id:S(FileRawBtn_0)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(SceneDropdown)
 @MenuDropdown
@@ -80,6 +81,7 @@ E#NewScene
 -IsActive:B(false)
 -ObjectId:S(NewSceneBtn)
 -Parent_id:S(SceneDropdown)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(NewSceneBtnTransform)
 @RawButton
@@ -96,6 +98,7 @@ E#NewSceneBtnText
 -IsActive:B(false)
 -ObjectId:S(NewSceneBtnText)
 -Parent_id:S(NewSceneBtn)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(NewSceneBtnTextTransform)
 @TextComponent
@@ -112,6 +115,7 @@ E#LoadScene
 -IsActive:B(false)
 -ObjectId:S(LoadSceneBtn)
 -Parent_id:S(SceneDropdown)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(LoadSceneBtnTransform)
 @RawButton
@@ -128,6 +132,7 @@ E#LoadSceneBtnText
 -IsActive:B(false)
 -ObjectId:S(LoadSceneBtnText)
 -Parent_id:S(LoadSceneBtn)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(LoadSceneBtnTextTransform)
 @TextComponent
@@ -144,6 +149,7 @@ E#SaveScene
 -IsActive:B(false)
 -ObjectId:S(SaveSceneBtn)
 -Parent_id:S(SceneDropdown)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(SaveSceneBtnTransform)
 @RawButton
@@ -160,6 +166,7 @@ E#SaveSceneBtnText
 -IsActive:B(false)
 -ObjectId:S(SaveSceneBtnText)
 -Parent_id:S(SaveSceneBtn)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(SaveSceneBtnTextTransform)
 @TextComponent
@@ -198,6 +205,7 @@ E#ElementDropdown
 -IsActive:B(false)
 -ObjectId:S(ElementDropdown)
 -Parent_id:S(ElementToggle)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(ElementToggleTransform)
 @MenuDropdown
@@ -218,6 +226,7 @@ E#NewElementRawBtn
 -IsActive:B(false)
 -ObjectId:S(ElementDropdownRawBtn)
 -Parent_id:S(ElementDropdown)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(NewElementRawBtnTransform)
 @RawButton
@@ -234,6 +243,7 @@ E#NewElementText
 -IsActive:B(false)
 -ObjectId:S(NewElementText)
 -Parent_id:S(ElementDropdownRawBtn)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(NewElementTextTransform)
 @TextComponent
@@ -250,6 +260,7 @@ E#Components
 -IsActive:B(true)
 -ObjectId:S(ComponentToggle)
 -Parent_id:S(fd_1)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(ComponentToggleTransform)
 -Position:V(0,0)
@@ -272,6 +283,7 @@ E#ComponentsDropdown
 -IsActive:B(false)
 -ObjectId:S(ComponentsDropdown)
 -Parent_id:S(ComponentToggle)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(ComponentsToggleTransform)
 @MenuDropdown
@@ -291,6 +303,7 @@ E#NewComponent
 -IsActive:B(false)
 -ObjectId:S(NewComponentContainer)
 -Parent_id:S(ComponentsDropdown)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(NewComponentTransformComp)
 @RawButton
@@ -307,6 +320,7 @@ E#NewComponentText
 -IsActive:B(false)
 -ObjectId:S(NewComponentText)
 -Parent_id:S(NewComponentContainer)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(NewComponentTextTransform)
 @TextComponent
@@ -323,6 +337,7 @@ E#AddComponent
 -IsActive:B(false)
 -ObjectId:S(AddComponentContainer)
 -Parent_id:S(ComponentsDropdown)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(AddComponentTransformComp)
 @RawButton
@@ -339,6 +354,7 @@ E#AddComponentText
 -IsActive:B(false)
 -ObjectId:S(AddComponentText)
 -Parent_id:S(AddComponentContainer)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(AddComponentTextTransform)
 @TextComponent
@@ -376,6 +392,7 @@ E#ProjectDropdown
 -IsActive:B(false)
 -ObjectId:S(ProjectDropdown)
 -Parent_id:S(ProjectToggle)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(ProjectToggleTransform)
 @MenuDropdown
@@ -395,6 +412,7 @@ E#WindowSettings
 -IsActive:B(false)
 -ObjectId:S(WindowSettingsContainer)
 -Parent_id:S(ProjectDropdown)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(WindowSettingsTransformComp)
 @RawButton
@@ -411,6 +429,7 @@ E#WindowSettingsText
 -IsActive:B(false)
 -ObjectId:S(WindowSettingsText)
 -Parent_id:S(WindowSettingsContainer)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(WindowSettingsTextTransform)
 @TextComponent
@@ -444,6 +463,7 @@ E#InputText
 -IsActive:B(false)
 -ObjectId:S(InputText)
 -Parent_id:S(InputContainer)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(InputTextTransform)
 @TextComponent
@@ -481,6 +501,7 @@ E#ToolsDropdown
 -IsActive:B(false)
 -ObjectId:S(ToolsDropdown)
 -Parent_id:S(ToolsToggle)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(ToolsToggleTransform)
 @MenuDropdown
@@ -506,6 +527,7 @@ E#NewWindowGameEditorBtn
 -IsActive:B(false)
 -ObjectId:S(NewWindowGameEditorBtn)
 -Parent_id:S(ToolsDropdown)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(NewGameEditorWindowTransformComp)
 @RawButton
@@ -522,6 +544,7 @@ E#NewWindowGameEditorText
 -IsActive:B(false)
 -ObjectId:S(NewWindowGameEditor)
 -Parent_id:S(NewWindowGameEditorBtn)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(NewWindowGameEditorTransform)
 @TextComponent
@@ -538,6 +561,7 @@ E#NewWindowInspectorBtn
 -IsActive:B(false)
 -ObjectId:S(NewWindowInspectorBtn)
 -Parent_id:S(ToolsDropdown)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(NewInspectorTransform)
 @RawButton
@@ -554,6 +578,7 @@ E#NewWindowInspector
 -IsActive:B(false)
 -ObjectId:S(NewWindowInspector)
 -Parent_id:S(NewWindowInspectorBtn)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(NewWindowInspectorTransform)
 @TextComponent
@@ -570,6 +595,7 @@ E#NewWindowAsset
 -IsActive:B(false)
 -ObjectId:S(NewWindowAsset)
 -Parent_id:S(ToolsDropdown)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(NewWindowAssetTransform)
 @RawButton
@@ -586,6 +612,7 @@ E#NewWindowAssetText
 -IsActive:B(false)
 -ObjectId:S(NewWindowAssetTextComp)
 -Parent_id:S(NewWindowAsset)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(NewWindowAssetTextTransform)
 @TextComponent
@@ -602,6 +629,7 @@ E#NewWindowScriptBtn
 -IsActive:B(false)
 -ObjectId:S(NewWindowScript)
 -Parent_id:S(ToolsDropdown)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(NewWindowScriptTransform)
 @RawButton
@@ -618,6 +646,7 @@ E#NeWindowScriptText
 -IsActive:B(false)
 -ObjectId:S(NewWindowScriptText)
 -Parent_id:S(NewWindowScript)
+-ZIndex:I(900)
 @TransformComponent
 -ComponentId:S(NewWindowScriptBtnComp)
 @TextComponent
@@ -831,22 +860,3 @@ E#TopPanelTabContainer
 -PaddingLeft:F(4)
 -Anchor:I(1)
 -Origin:I(1)
-
-E#SceneView
--IsActive:B(true)
--ObjectId:S(SceneViewTab)
--ZIndex:I(199)
--Parent_id:S(TopPanelTabContainer)
-@TransformComponent
--ComponentId:S(SceneViewTabTransform)
-@PanelTabComponent
--_tabNormalColor:C(61, 61, 61, 255)
--_tabHoverColor:C(50, 50, 50, 255)
--TabName:S(Scene Tree)
--_tabContainer_id:S(TopPanelTanComponent)
--_panelReference_id:S(TopPanelComponent)
--Height:F(20)
--Width:F(100)
--Anchor:I(1)
--Origin:I(1)
--IsSelected:B(true)
