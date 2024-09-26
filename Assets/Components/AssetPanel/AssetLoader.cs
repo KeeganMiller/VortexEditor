@@ -27,6 +27,19 @@ public static class AssetLoader
         _rootFolder.Initialize();
     }
 
+    public static List<AssetFile> GetFilesInDirectory(string path)
+    {
+        if(_rootFolder != null)
+        {
+            if(_rootFolder.FullPath == path)
+                return _rootFolder.FilesInDirectory;
+
+            return _rootFolder.GetFilesAtPath(path);
+        }
+
+        return null;
+    }
+
     public static void CheckForChangesOnLaunch()
     {
 
@@ -77,6 +90,22 @@ public class AssetFolder : AssetFile
         }
     }
 
+    public List<AssetFile> GetFilesAtPath(string path)
+    {
+        foreach(var file in FilesInDirectory)
+        {
+            if(file is AssetFolder folder)
+            {
+                if(folder.FullPath == path)
+                    return folder.FilesInDirectory;
+
+                return folder.GetFilesAtPath(path);
+            }
+        }
+
+        return null;
+    }
+
     private void GetAllFiles()
     {
         var files = Directory.GetFiles(FullPath);
@@ -123,7 +152,6 @@ public class AssetFolder : AssetFile
         var asset = FindAssetFileByPath(assetPath);
         if(asset != null)
         {
-            Console.WriteLine($"Writing to file -> {line}");
             var data = asset.GetFileLines();
             data.Add("");
             File.AppendAllLines(resourcePath, data);
@@ -153,6 +181,9 @@ public class AssetFolder : AssetFile
                 break;
             case EAssetType.ASSET_Shader:
                 asset = new FontAsset(fileName, id, assetFilePath, dataType);
+                break;
+            case EAssetType.ASSET_Code:
+                asset = new OtherAsset(fileName, id, assetFilePath, dataType);
                 break;
         }
 
@@ -189,6 +220,9 @@ public class AssetFolder : AssetFile
                 break;
             case EAssetType.ASSET_Shader:
                 asset = new FontAsset(fileName, id, assetFilePath, dataType);
+                break;
+            case EAssetType.ASSET_Code:
+                asset = new OtherAsset(fileName, id, assetFilePath, dataType);
                 break;
         }
 
